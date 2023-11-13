@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Bored</string>
+    <string name="get_new_activity">Recommend me new activity!</string>
 </resources>

@@ -1,35 +1,83 @@
 package com.uszkaisandor.bored.views
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.uszkaisandor.bored.R
+import com.uszkaisandor.bored.domain.Activity
+import com.uszkaisandor.bored.domain.ActivityType
 import com.uszkaisandor.bored.ui.theme.BoredTheme
-import com.uszkaisandor.bored.vm.ActivitiesViewModel
+import com.uszkaisandor.bored.ui.theme.Typography
 
 @Composable
 fun ActivityRecommendation(
-    viewModel: ActivitiesViewModel,
+    activity: Activity,
+    onButtonClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
-    val currentActivity = viewModel.activity.collectAsState()
-
-    Box(Modifier.fillMaxSize()) {
-        Text(
-            text = currentActivity.value?.name ?: "",
-            modifier = modifier.align(Alignment.Center)
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Top,
+    ) {
+        ActivityCard(
+            name = activity.name,
+            participants = activity.participants
         )
+        Spacer(modifier = Modifier.weight(1f))
+        Button(
+            modifier = modifier
+                .height(56.dp)
+                .fillMaxWidth(),
+            onClick = onButtonClick
+        ) {
+            Text(
+                text = stringResource(id = R.string.get_new_activity),
+                style = Typography.labelLarge,
+                color = MaterialTheme.colorScheme.onPrimary
+            )
+        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun ActivityRecommendationPreview() {
-    BoredTheme {
-        // ActivityRecommendation(ActivityRecommendation(viewModel = Ac))
+fun ActivityRecommendationPreviewLight() {
+    BoredTheme(darkTheme = false) {
+        ActivityRecommendation(activity = sampleActivity)
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun ActivityRecommendationPreviewDark() {
+    BoredTheme(darkTheme = true) {
+        ActivityRecommendation(activity = sampleActivity)
+    }
+}
+
+
+val sampleActivity = Activity(
+    name = "Learn guitar",
+    type = ActivityType.MUSIC,
+    accessibility = 0.3f,
+    link = "",
+    key = "",
+    participants = 3,
+    price = 30f
+)
