@@ -17,14 +17,14 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val LightColorScheme = lightColorScheme(
-    primary = DarkBlue,
-    onPrimary = Color.White,
-    secondary = Color.Blue,
+    primary = CarriageRide,
+    onPrimary = Color.Black,
+    secondary = MountOlympus,
     tertiary = Color.Green,
-    background = PaleBlue,
+    background = WinterEscape,
     onBackground = CharCoal,
-    surface = LightBlue,
-    onSurface = Color.White
+    surface = MountOlympus,
+    onSurface = CharCoal
 )
 
 private val DarkColorScheme = darkColorScheme(
@@ -32,7 +32,7 @@ private val DarkColorScheme = darkColorScheme(
     onPrimary = Color.White,
     secondary = Color.Red,
     tertiary = Color.Yellow,
-    background = MidnightBlue,
+    background = StellarExplorer,
     onBackground = Color.White,
     surface = DarkBlue,
     onSurface = Color.White
@@ -69,7 +69,7 @@ fun BoredTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.background.toArgb()
+            window.statusBarColor = colorScheme.surface.toArgb()
             window.navigationBarColor = colorScheme.background.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
             WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars =

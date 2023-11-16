@@ -30,5 +30,21 @@ enum class ActivityType {
     MUSIC,
 
     @SerialName("busywork")
-    BUSYWORK
+    BUSYWORK;
+
 }
+
+fun ActivityType.toEmoji(): String {
+    return when (this) {
+        ActivityType.EDUCATION -> "📚"
+        ActivityType.RECREATIONAL -> "🎮"
+        ActivityType.SOCIAL -> "🤝"
+        ActivityType.DIY -> "🔨"
+        ActivityType.CHARITY -> "🤲"
+        ActivityType.COOKING -> "🍳"
+        ActivityType.RELAXATION -> "🌴"
+        ActivityType.MUSIC -> "🎵"
+        ActivityType.BUSYWORK -> "📅"
+    }
+}
+

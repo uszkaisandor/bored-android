@@ -32,17 +32,17 @@ fun ActivityRecommendation(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(16.dp),
+            .padding(bottom = 16.dp),
         verticalArrangement = Arrangement.Top,
     ) {
         ActivityCard(
-            name = activity.name,
-            participants = activity.participants
+            activity = activity
         )
         Spacer(modifier = Modifier.weight(1f))
         Button(
             modifier = modifier
                 .height(56.dp)
+                .padding(start = 16.dp, end = 16.dp)
                 .fillMaxWidth(),
             onClick = onButtonClick
         ) {
@@ -79,5 +79,5 @@ val sampleActivity = Activity(
     link = "",
     key = "",
     participants = 3,
-    price = 30f
+    priceRange = 0.71f
 )

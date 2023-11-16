@@ -14,12 +14,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun PersonIcon() {
+fun PersonIcon(modifier: Modifier = Modifier) {
     Icon(
         imageVector = Icons.Default.Person,
-        contentDescription = null, // Provide a meaningful description if needed
-        tint = MaterialTheme.colorScheme.onSurface, // Adjust the color as needed
-        modifier = Modifier
+        contentDescription = null,
+        tint = MaterialTheme.colorScheme.onSurface,
+        modifier = modifier
             .size(32.dp)
             .background(Color.Transparent)
             .clip(CircleShape)
