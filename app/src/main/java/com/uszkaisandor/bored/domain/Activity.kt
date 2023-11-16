@@ -5,7 +5,7 @@ data class Activity(
     val accessibility: Float,
     val type: ActivityType,
     val participants: Int,
-    val price: Float,
+    val priceRange: Float,
     val link: String,
     val key: String
 )

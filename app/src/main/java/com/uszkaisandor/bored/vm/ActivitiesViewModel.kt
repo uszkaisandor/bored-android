@@ -37,4 +37,8 @@ class ActivitiesViewModel @Inject constructor(
         }
     }
 
+    fun onButtonClicked() {
+        getRandomActivity()
+    }
+
 }

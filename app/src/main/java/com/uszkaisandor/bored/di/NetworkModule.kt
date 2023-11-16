@@ -35,11 +35,14 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient() = OkHttpClient.Builder()
+    fun provideOkHttpClient(
+        interceptor: HttpLoggingInterceptor
+    ) = OkHttpClient.Builder()
         .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
         .readTimeout(READ_WRITE_TIMEOUT, TimeUnit.SECONDS)
         .writeTimeout(READ_WRITE_TIMEOUT, TimeUnit.SECONDS)
         .callTimeout(CALL_TIMEOUT, TimeUnit.SECONDS)
+        .addInterceptor(interceptor)
         .build()
 
     @Provides

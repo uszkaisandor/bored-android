@@ -20,7 +20,7 @@ class ActivityRepository @Inject constructor(
         accessibility = accessibility,
         type = type,
         participants = participants,
-        price = price,
+        priceRange = price,
         link = link,
         key = key
     )
