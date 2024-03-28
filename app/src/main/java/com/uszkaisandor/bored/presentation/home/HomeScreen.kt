@@ -1,4 +1,4 @@
-package com.uszkaisandor.bored.views
+package com.uszkaisandor.bored.presentation.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,33 +16,33 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ramcosta.composedestinations.annotation.Destination
 import com.uszkaisandor.bored.R
 import com.uszkaisandor.bored.domain.Activity
 import com.uszkaisandor.bored.domain.ActivityType
 import com.uszkaisandor.bored.ui.theme.BoredTheme
 import com.uszkaisandor.bored.ui.theme.Typography
+import com.uszkaisandor.bored.views.ActivityCard
 
+@Destination(start = true)
 @Composable
-fun ActivityRecommendation(
-    activity: Activity,
+fun HomeScreen(
+    modifier: Modifier = Modifier,
     onButtonClick: () -> Unit = {},
-    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(bottom = 16.dp),
+            .background(MaterialTheme.colorScheme.background),
         verticalArrangement = Arrangement.Top,
     ) {
         ActivityCard(
-            activity = activity
+            activity = sampleActivity
         )
-        Spacer(modifier = Modifier.weight(1f))
         Button(
             modifier = modifier
                 .height(56.dp)
-                .padding(start = 16.dp, end = 16.dp)
+                .padding(start = 16.dp, end = 16.dp, bottom = 50.dp)
                 .fillMaxWidth(),
             onClick = onButtonClick
         ) {
@@ -59,7 +59,7 @@ fun ActivityRecommendation(
 @Composable
 fun ActivityRecommendationPreviewLight() {
     BoredTheme(darkTheme = false) {
-        ActivityRecommendation(activity = sampleActivity)
+        HomeScreen()
     }
 }
 
@@ -67,7 +67,7 @@ fun ActivityRecommendationPreviewLight() {
 @Composable
 fun ActivityRecommendationPreviewDark() {
     BoredTheme(darkTheme = true) {
-        ActivityRecommendation(activity = sampleActivity)
+        HomeScreen()
     }
 }
 
