@@ -1,8 +1,8 @@
 package com.uszkaisandor.bored.navigation
 
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
@@ -20,10 +20,11 @@ fun BottomBar(
     val currentDestination: Destination = navController.appCurrentDestinationAsState().value
         ?: NavGraphs.root.startAppDestination
 
-    BottomNavigation {
+    NavigationBar {
         BottomBarDestination.entries.forEach { destination ->
-            BottomNavigationItem(
-                selected = currentDestination == destination.direction,
+            val isSelected = currentDestination == destination.direction
+            NavigationBarItem(
+                selected = isSelected,
                 onClick = {
                     navController.navigateTo(destination.direction) {
                         launchSingleTop = true
@@ -31,7 +32,7 @@ fun BottomBar(
                 },
                 icon = {
                     Icon(
-                        destination.icon,
+                        if (isSelected) destination.selectedIcon else destination.unSelectedIcon,
                         contentDescription = stringResource(destination.label)
                     )
                 },
