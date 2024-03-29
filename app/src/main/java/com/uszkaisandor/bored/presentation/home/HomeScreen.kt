@@ -3,7 +3,6 @@ package com.uszkaisandor.bored.presentation.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,7 +19,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.uszkaisandor.bored.R
 import com.uszkaisandor.bored.domain.Activity
 import com.uszkaisandor.bored.domain.ActivityType
-import com.uszkaisandor.bored.ui.theme.BoredTheme
+import com.uszkaisandor.bored.ui.theme.AppTheme
 import com.uszkaisandor.bored.ui.theme.Typography
 import com.uszkaisandor.bored.views.ActivityCard
 
@@ -58,7 +57,7 @@ fun HomeScreen(
 @Preview(showBackground = true)
 @Composable
 fun ActivityRecommendationPreviewLight() {
-    BoredTheme(darkTheme = false) {
+    AppTheme(darkTheme = false) {
         HomeScreen()
     }
 }
@@ -66,7 +65,7 @@ fun ActivityRecommendationPreviewLight() {
 @Preview(showBackground = true)
 @Composable
 fun ActivityRecommendationPreviewDark() {
-    BoredTheme(darkTheme = true) {
+    AppTheme(darkTheme = true) {
         HomeScreen()
     }
 }

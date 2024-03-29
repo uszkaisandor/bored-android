@@ -24,7 +24,7 @@ import com.uszkaisandor.bored.R
 import com.uszkaisandor.bored.domain.Activity
 import com.uszkaisandor.bored.domain.toEmoji
 import com.uszkaisandor.bored.presentation.home.sampleActivity
-import com.uszkaisandor.bored.ui.theme.BoredTheme
+import com.uszkaisandor.bored.ui.theme.AppTheme
 import com.uszkaisandor.bored.ui.theme.Typography
 
 @Composable
@@ -115,7 +115,7 @@ fun ActivityCard(
 @Preview
 @Composable
 fun ActivityCardPreview(activity: Activity = sampleActivity) {
-    BoredTheme {
+    AppTheme {
         ActivityCard(sampleActivity)
     }
 }

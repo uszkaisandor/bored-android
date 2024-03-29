@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import com.uszkaisandor.bored.presentation.app.BoredApp
-import com.uszkaisandor.bored.ui.theme.BoredTheme
+import com.uszkaisandor.bored.ui.theme.AppTheme
 import com.uszkaisandor.bored.vm.ActivitiesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            BoredTheme {
+            AppTheme {
                 CompositionLocalProvider {
                     BoredApp(modifier = Modifier.safeDrawingPadding())
                 }
