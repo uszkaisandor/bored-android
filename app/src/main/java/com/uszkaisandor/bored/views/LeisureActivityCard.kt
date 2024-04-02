@@ -53,7 +53,7 @@ fun LeisureActivityCard(
                 .fillMaxWidth()
         ) {
             Text(
-                text = leisureActivity.name ?: "",
+                text = leisureActivity.name,
                 modifier = Modifier
                     .animateContentSize()
                     .align(Alignment.Center)
