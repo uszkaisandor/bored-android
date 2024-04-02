@@ -3,6 +3,7 @@ package com.uszkaisandor.bored.presentation.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -15,41 +16,49 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.uszkaisandor.bored.R
-import com.uszkaisandor.bored.domain.Activity
-import com.uszkaisandor.bored.domain.ActivityType
+import com.uszkaisandor.bored.domain.LeisureActivity
+import com.uszkaisandor.bored.domain.LeisureActivityType
+import com.uszkaisandor.bored.presentation.common.BaseScreen
 import com.uszkaisandor.bored.ui.theme.AppTheme
 import com.uszkaisandor.bored.ui.theme.Typography
-import com.uszkaisandor.bored.views.ActivityCard
+import com.uszkaisandor.bored.views.LeisureActivityCard
+import com.uszkaisandor.bored.vm.home.HomeViewModel
 
 @Destination(start = true)
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    onButtonClick: () -> Unit = {},
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
-        verticalArrangement = Arrangement.Top,
-    ) {
-        ActivityCard(
-            activity = sampleActivity
-        )
-        Button(
+    BaseScreen(viewModel = viewModel) { uiState ->
+        Column(
             modifier = modifier
-                .height(56.dp)
-                .padding(start = 16.dp, end = 16.dp, bottom = 50.dp)
-                .fillMaxWidth(),
-            onClick = onButtonClick
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background),
+            verticalArrangement = Arrangement.Top,
         ) {
-            Text(
-                text = stringResource(id = R.string.get_new_activity),
-                style = Typography.labelLarge,
-                color = MaterialTheme.colorScheme.onPrimary
-            )
+            uiState.currentLeisureActivity?.let {
+                LeisureActivityCard(
+                    leisureActivity = it
+                )
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            Button(
+                modifier = modifier
+                    .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+                    .height(56.dp)
+                    .fillMaxWidth(),
+                onClick = { viewModel.onButtonClicked() }
+            ) {
+                Text(
+                    text = stringResource(id = R.string.get_new_activity),
+                    style = Typography.labelLarge,
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
+            }
         }
     }
 }
@@ -71,9 +80,9 @@ fun ActivityRecommendationPreviewDark() {
 }
 
 
-val sampleActivity = Activity(
+val sampleLeisureActivity = LeisureActivity(
     name = "Learn guitar",
-    type = ActivityType.MUSIC,
+    type = LeisureActivityType.MUSIC,
     accessibility = 0.3f,
     link = "",
     key = "",

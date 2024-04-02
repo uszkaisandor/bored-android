@@ -1,13 +1,13 @@
 package com.uszkaisandor.bored.network.dto
 
-import com.uszkaisandor.bored.domain.ActivityType
+import com.uszkaisandor.bored.domain.LeisureActivityType
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ActivityDto(
+data class LeisureActivityDto(
     val activity: String,
     val accessibility: Float,
-    val type: ActivityType,
+    val type: LeisureActivityType,
     val participants: Int,
     val price: Float,
     val link: String,

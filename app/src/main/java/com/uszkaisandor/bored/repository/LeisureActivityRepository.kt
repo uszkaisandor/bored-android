@@ -1,21 +1,21 @@
 package com.uszkaisandor.bored.repository
 
-import com.uszkaisandor.bored.domain.Activity
+import com.uszkaisandor.bored.domain.LeisureActivity
 import com.uszkaisandor.bored.network.api.BoredApi
-import com.uszkaisandor.bored.network.dto.ActivityDto
+import com.uszkaisandor.bored.network.dto.LeisureActivityDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class ActivityRepository @Inject constructor(
+class LeisureActivityRepository @Inject constructor(
     private val boredApi: BoredApi
 ) {
-    fun getActivity(): Flow<Activity> = flow {
-        emit(boredApi.getActivity().toActivity())
+    fun getRandom(): Flow<LeisureActivity> = flow {
+        emit(boredApi.getActivity().toLeisureActivity())
     }
 
 
-    private fun ActivityDto.toActivity() = Activity(
+    private fun LeisureActivityDto.toLeisureActivity() = LeisureActivity(
         name = activity,
         accessibility = accessibility,
         type = type,

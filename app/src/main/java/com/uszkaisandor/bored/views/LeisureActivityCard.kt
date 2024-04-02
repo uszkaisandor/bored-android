@@ -21,15 +21,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.uszkaisandor.bored.R
-import com.uszkaisandor.bored.domain.Activity
+import com.uszkaisandor.bored.domain.LeisureActivity
 import com.uszkaisandor.bored.domain.toEmoji
-import com.uszkaisandor.bored.presentation.home.sampleActivity
+import com.uszkaisandor.bored.presentation.home.sampleLeisureActivity
 import com.uszkaisandor.bored.ui.theme.AppTheme
 import com.uszkaisandor.bored.ui.theme.Typography
 
 @Composable
-fun ActivityCard(
-    activity: Activity,
+fun LeisureActivityCard(
+    leisureActivity: LeisureActivity,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -37,7 +37,7 @@ fun ActivityCard(
             .fillMaxWidth()
             .wrapContentHeight()
             .background(
-                color = MaterialTheme.colorScheme.surface,
+                color = MaterialTheme.colorScheme.surfaceContainer,
                 shape = RoundedCornerShape(
                     bottomStart = 16.dp,
                     bottomEnd = 16.dp,
@@ -53,7 +53,7 @@ fun ActivityCard(
                 .fillMaxWidth()
         ) {
             Text(
-                text = activity.name ?: "",
+                text = leisureActivity.name,
                 modifier = Modifier
                     .animateContentSize()
                     .align(Alignment.Center)
@@ -79,14 +79,14 @@ fun ActivityCard(
             Text(
                 modifier = Modifier
                     .align(Alignment.Center),
-                text = activity.type.toEmoji(),
+                text = leisureActivity.type.toEmoji(),
                 style = MaterialTheme.typography.headlineMedium,
             )
         }
 
         SliderWithTitle(
             title = stringResource(id = R.string.price_range),
-            value = activity.priceRange,
+            value = leisureActivity.priceRange,
             range = (0f..1f),
             steps = 8,
             isEnabled = false,
@@ -97,7 +97,7 @@ fun ActivityCard(
 
         SliderWithTitle(
             title = stringResource(id = R.string.accessibility),
-            value = kotlin.math.abs(1 - activity.accessibility),
+            value = kotlin.math.abs(1 - leisureActivity.accessibility),
             range = (0f..1f),
             steps = 8,
             isEnabled = false,
@@ -105,7 +105,7 @@ fun ActivityCard(
         )
 
         PersonsView(
-            persons = activity.participants,
+            persons = leisureActivity.participants,
             modifier = modifier.align(Alignment.CenterHorizontally)
         )
 
@@ -114,8 +114,8 @@ fun ActivityCard(
 
 @Preview
 @Composable
-fun ActivityCardPreview(activity: Activity = sampleActivity) {
+fun LeisureActivityCardPreview(leisureActivity: LeisureActivity = sampleLeisureActivity) {
     AppTheme {
-        ActivityCard(sampleActivity)
+        LeisureActivityCard(sampleLeisureActivity)
     }
 }

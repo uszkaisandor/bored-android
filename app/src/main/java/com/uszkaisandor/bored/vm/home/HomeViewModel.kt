@@ -1,24 +1,25 @@
-package com.uszkaisandor.bored.vm
+package com.uszkaisandor.bored.vm.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.uszkaisandor.bored.domain.Activity
-import com.uszkaisandor.bored.repository.ActivityRepository
+import com.uszkaisandor.bored.repository.LeisureActivityRepository
+import com.uszkaisandor.bored.vm.common.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ActivitiesViewModel @Inject constructor(
-    private val repository: ActivityRepository
-) : ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val repository: LeisureActivityRepository
+) : ViewModel(), BaseViewModel<HomeUiState> {
 
-    private val _activity = MutableStateFlow<Activity?>(null)
-    val activity = _activity.asStateFlow()
+    private val _uiState = MutableStateFlow(HomeUiState())
+    override val uiState = _uiState.asStateFlow()
 
     init {
         getRandomActivity()
@@ -26,13 +27,14 @@ class ActivitiesViewModel @Inject constructor(
 
     private fun getRandomActivity() {
         viewModelScope.launch {
-            repository.getActivity()
+            repository.getRandom()
                 .catch {
-                    it
-                    // todo handle error
+                    // todo work on error handling
                 }
                 .collectLatest {
-                    _activity.value = it
+                    _uiState.update { state ->
+                        state.copy(currentLeisureActivity = it)
+                    }
                 }
         }
     }

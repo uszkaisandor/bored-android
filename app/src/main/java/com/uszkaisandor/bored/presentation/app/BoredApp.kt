@@ -1,6 +1,7 @@
 package com.uszkaisandor.bored.presentation.app
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,9 +20,10 @@ fun BoredApp(modifier: Modifier) {
         bottomBar = {
             BottomBar(navController)
         }
-        //...
     ) { paddingValues ->
         DestinationsNavHost(
+            modifier = modifier
+                .padding(bottom = paddingValues.calculateBottomPadding()),
             navController = navController,
             startRoute = NavGraphs.root.startRoute,
             navGraph = NavGraphs.root
