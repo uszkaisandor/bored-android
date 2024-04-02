@@ -19,7 +19,6 @@ fun BoredApp(modifier: Modifier) {
         bottomBar = {
             BottomBar(navController)
         }
-        //...
     ) { paddingValues ->
         DestinationsNavHost(
             navController = navController,

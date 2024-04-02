@@ -10,13 +10,13 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import com.uszkaisandor.bored.presentation.app.BoredApp
 import com.uszkaisandor.bored.ui.theme.AppTheme
-import com.uszkaisandor.bored.vm.ActivitiesViewModel
+import com.uszkaisandor.bored.vm.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: ActivitiesViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

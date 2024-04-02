@@ -1,9 +1,9 @@
 package com.uszkaisandor.bored.domain
 
-data class Activity(
+data class LeisureActivity(
     val name: String,
     val accessibility: Float,
-    val type: ActivityType,
+    val type: LeisureActivityType,
     val participants: Int,
     val priceRange: Float,
     val link: String,

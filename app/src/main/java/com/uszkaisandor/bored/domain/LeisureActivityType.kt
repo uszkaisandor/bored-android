@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-enum class ActivityType {
+enum class LeisureActivityType {
     @SerialName("education")
     EDUCATION,
 
@@ -34,17 +34,17 @@ enum class ActivityType {
 
 }
 
-fun ActivityType.toEmoji(): String {
+fun LeisureActivityType.toEmoji(): String {
     return when (this) {
-        ActivityType.EDUCATION -> "📚"
-        ActivityType.RECREATIONAL -> "🎮"
-        ActivityType.SOCIAL -> "🤝"
-        ActivityType.DIY -> "🔨"
-        ActivityType.CHARITY -> "🤲"
-        ActivityType.COOKING -> "🍳"
-        ActivityType.RELAXATION -> "🌴"
-        ActivityType.MUSIC -> "🎵"
-        ActivityType.BUSYWORK -> "📅"
+        LeisureActivityType.EDUCATION -> "📚"
+        LeisureActivityType.RECREATIONAL -> "🎮"
+        LeisureActivityType.SOCIAL -> "🤝"
+        LeisureActivityType.DIY -> "🔨"
+        LeisureActivityType.CHARITY -> "🤲"
+        LeisureActivityType.COOKING -> "🍳"
+        LeisureActivityType.RELAXATION -> "🌴"
+        LeisureActivityType.MUSIC -> "🎵"
+        LeisureActivityType.BUSYWORK -> "📅"
     }
 }
 
