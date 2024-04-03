@@ -42,6 +42,7 @@ fun HomeScreen(
         ) {
             uiState.currentLeisureActivity?.let {
                 LeisureActivityCard(
+                    modifier = Modifier.padding(16.dp),
                     leisureActivity = it
                 )
             }

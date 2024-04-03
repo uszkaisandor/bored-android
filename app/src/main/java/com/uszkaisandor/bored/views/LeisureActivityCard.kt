@@ -22,9 +22,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.uszkaisandor.bored.R
 import com.uszkaisandor.bored.domain.LeisureActivity
+import com.uszkaisandor.bored.domain.toColor
 import com.uszkaisandor.bored.domain.toEmoji
 import com.uszkaisandor.bored.presentation.home.sampleLeisureActivity
 import com.uszkaisandor.bored.ui.theme.AppTheme
+import com.uszkaisandor.bored.ui.theme.ExtendedTheme
 import com.uszkaisandor.bored.ui.theme.Typography
 
 @Composable
@@ -32,18 +34,16 @@ fun LeisureActivityCard(
     leisureActivity: LeisureActivity,
     modifier: Modifier = Modifier,
 ) {
+    val colors = ExtendedTheme.colors
+    val accentColor = leisureActivity.type.toColor(colors)
+
     Column(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
             .background(
                 color = MaterialTheme.colorScheme.surfaceContainer,
-                shape = RoundedCornerShape(
-                    bottomStart = 16.dp,
-                    bottomEnd = 16.dp,
-                    topStart = 0.dp,
-                    topEnd = 0.dp
-                )
+                shape = RoundedCornerShape(16.dp)
             )
             .padding(all = 12.dp)
     ) {
@@ -55,11 +55,11 @@ fun LeisureActivityCard(
             Text(
                 text = leisureActivity.name,
                 modifier = Modifier
-                    .animateContentSize()
                     .align(Alignment.Center)
+                    .animateContentSize()
                     .padding(horizontal = 16.dp)
                     .background(
-                        color = MaterialTheme.colorScheme.background,
+                        color = accentColor,
                         shape = RoundedCornerShape(20.dp)
                     )
                     .padding(vertical = 8.dp, horizontal = 16.dp),
@@ -73,7 +73,7 @@ fun LeisureActivityCard(
             modifier = modifier
                 .align(Alignment.CenterHorizontally)
                 .wrapContentSize()
-                .background(color = MaterialTheme.colorScheme.background, shape = CircleShape)
+                .background(color = accentColor, shape = CircleShape)
                 .padding(8.dp)
         ) {
             Text(
@@ -106,7 +106,8 @@ fun LeisureActivityCard(
 
         PersonsView(
             persons = leisureActivity.participants,
-            modifier = modifier.align(Alignment.CenterHorizontally)
+            modifier = modifier.align(Alignment.CenterHorizontally),
+            color = accentColor
         )
 
     }
