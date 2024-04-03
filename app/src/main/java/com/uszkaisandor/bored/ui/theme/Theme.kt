@@ -5,16 +5,26 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 @Immutable
-data class ExtendedColorScheme(
-    val custom: Color
+data class ExtendedColors(
+    val education: Color,
+    val recreation: Color,
+    val social: Color,
+    val diy: Color,
+    val charity: Color,
+    val cooking: Color,
+    val relaxation: Color,
+    val music: Color,
+    val busyWork: Color
 )
 
 private val lightScheme = lightColorScheme(
@@ -207,79 +217,44 @@ private val mediumContrastDarkColorScheme = darkColorScheme(
     surfaceContainerHighest = surfaceContainerHighestDarkMediumContrast,
 )
 
-private val highContrastDarkColorScheme = darkColorScheme(
-    primary = primaryDarkHighContrast,
-    onPrimary = onPrimaryDarkHighContrast,
-    primaryContainer = primaryContainerDarkHighContrast,
-    onPrimaryContainer = onPrimaryContainerDarkHighContrast,
-    secondary = secondaryDarkHighContrast,
-    onSecondary = onSecondaryDarkHighContrast,
-    secondaryContainer = secondaryContainerDarkHighContrast,
-    onSecondaryContainer = onSecondaryContainerDarkHighContrast,
-    tertiary = tertiaryDarkHighContrast,
-    onTertiary = onTertiaryDarkHighContrast,
-    tertiaryContainer = tertiaryContainerDarkHighContrast,
-    onTertiaryContainer = onTertiaryContainerDarkHighContrast,
-    error = errorDarkHighContrast,
-    onError = onErrorDarkHighContrast,
-    errorContainer = errorContainerDarkHighContrast,
-    onErrorContainer = onErrorContainerDarkHighContrast,
-    background = backgroundDarkHighContrast,
-    onBackground = onBackgroundDarkHighContrast,
-    surface = surfaceDarkHighContrast,
-    onSurface = onSurfaceDarkHighContrast,
-    surfaceVariant = surfaceVariantDarkHighContrast,
-    onSurfaceVariant = onSurfaceVariantDarkHighContrast,
-    outline = outlineDarkHighContrast,
-    outlineVariant = outlineVariantDarkHighContrast,
-    scrim = scrimDarkHighContrast,
-    inverseSurface = inverseSurfaceDarkHighContrast,
-    inverseOnSurface = inverseOnSurfaceDarkHighContrast,
-    inversePrimary = inversePrimaryDarkHighContrast,
-    surfaceDim = surfaceDimDarkHighContrast,
-    surfaceBright = surfaceBrightDarkHighContrast,
-    surfaceContainerLowest = surfaceContainerLowestDarkHighContrast,
-    surfaceContainerLow = surfaceContainerLowDarkHighContrast,
-    surfaceContainer = surfaceContainerDarkHighContrast,
-    surfaceContainerHigh = surfaceContainerHighDarkHighContrast,
-    surfaceContainerHighest = surfaceContainerHighestDarkHighContrast,
+val extendedLight = ExtendedColors(
+    education = Color(0xFF775A0B),
+    recreation = Color(0xFF336699), // Example color, replace with appropriate color values
+    social = Color(0xFF99CC00),
+    diy = Color(0xFFFF6600),
+    charity = Color(0xFF0099CC),
+    cooking = Color(0xFF663399),
+    relaxation = Color(0xFFFF9933),
+    music = Color(0xFF33B5E5),
+    busyWork = Color(0xFFAA66CC)
 )
 
-val extendedLight = ExtendedColorScheme(
-    Color(0xFF000000)
+val extendedDark = ExtendedColors(
+    education = Color(0xFF0B4377),
+    recreation = Color(0xFF775A0B),
+    social = Color(0xFF775A0B),
+    diy = Color(0xFF775A0B),
+    charity = Color(0xFF775A0B),
+    cooking = Color(0xFF775A0B),
+    relaxation = Color(0xFF775A0B),
+    music = Color(0xFF775A0B),
+    busyWork = Color(0xFF775A0B)
 )
 
-val extendedDark = ExtendedColorScheme(
-    Color(0xFF000000)
-)
+val LocalExtendedColors = staticCompositionLocalOf {
+    ExtendedColors(
+        education = Color.Unspecified,
+        recreation = Color.Unspecified,
+        social = Color.Unspecified,
+        diy = Color.Unspecified,
+        charity = Color.Unspecified,
+        cooking = Color.Unspecified,
+        relaxation = Color.Unspecified,
+        music = Color.Unspecified,
+        busyWork = Color.Unspecified
+    )
+}
 
-val extendedLightMediumContrast = ExtendedColorScheme(
-    Color(0xFF000000)
-)
-
-val extendedLightHighContrast = ExtendedColorScheme(
-    Color(0xFF000000)
-)
-
-val extendedDarkMediumContrast = ExtendedColorScheme(
-    Color(0xFF000000)
-)
-
-val extendedDarkHighContrast = ExtendedColorScheme(
-    Color(0xFF000000)
-)
-
-@Immutable
-data class ColorFamily(
-    val color: Color,
-    val onColor: Color,
-    val colorContainer: Color,
-    val onColorContainer: Color
-)
-
-val unspecified_scheme = ColorFamily(
-    Color.Unspecified, Color.Unspecified, Color.Unspecified, Color.Unspecified
-)
 
 @Composable
 fun AppTheme(
@@ -295,8 +270,6 @@ fun AppTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }*/
-
-
         darkTheme -> darkScheme
         else -> lightScheme
     }
@@ -305,15 +278,27 @@ fun AppTheme(
         SideEffect {
             val window = (view.context as android.app.Activity).window
             window.statusBarColor = colorScheme.background.toArgb()
-            window.navigationBarColor = colorScheme.background.toArgb()
+            window.navigationBarColor = colorScheme.surfaceContainer.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+    val extendedColors = if (darkTheme) extendedDark else extendedLight
+
+    CompositionLocalProvider(LocalExtendedColors provides extendedColors) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            content = content
+        )
+    }
+
 }
+
+object ExtendedTheme {
+    val colors: ExtendedColors
+        @Composable
+        get() = LocalExtendedColors.current
+}
+
 
