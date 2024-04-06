@@ -1,6 +1,7 @@
 package com.uszkaisandor.bored.domain
 
 import androidx.compose.ui.graphics.Color
+import com.uszkaisandor.bored.R
 import com.uszkaisandor.bored.ui.theme.ExtendedColors
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -70,4 +71,18 @@ fun LeisureActivityType.toImageUrl(): String = when (this) {
     LeisureActivityType.RELAXATION -> "https://images.pexels.com/photos/904616/pexels-photo-904616.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     LeisureActivityType.MUSIC -> "https://images.pexels.com/photos/1389429/pexels-photo-1389429.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     LeisureActivityType.BUSYWORK -> "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+}
+
+fun LeisureActivityType.toStringResource(): Int {
+    return when (this) {
+        LeisureActivityType.EDUCATION -> R.string.education
+        LeisureActivityType.RECREATION -> R.string.recreation
+        LeisureActivityType.SOCIAL -> R.string.social
+        LeisureActivityType.DIY -> R.string.diy
+        LeisureActivityType.CHARITY -> R.string.charity
+        LeisureActivityType.COOKING -> R.string.cooking
+        LeisureActivityType.RELAXATION -> R.string.relaxation
+        LeisureActivityType.MUSIC -> R.string.music
+        LeisureActivityType.BUSYWORK -> R.string.busywork
+    }
 }

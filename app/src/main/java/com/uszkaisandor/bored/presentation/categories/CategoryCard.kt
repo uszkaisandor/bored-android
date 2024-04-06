@@ -1,5 +1,6 @@
 package com.uszkaisandor.bored.presentation.categories
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
@@ -15,20 +16,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.uszkaisandor.bored.domain.LeisureActivityType
 import com.uszkaisandor.bored.domain.toImageUrl
+import com.uszkaisandor.bored.domain.toStringResource
 
 @Composable
 fun CategoryCard(leisureActivityType: LeisureActivityType) {
-    Card(shape = RoundedCornerShape(16.dp)) {
+    Card(shape = RoundedCornerShape(12.dp)) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(1.6f)
+                .aspectRatio(1.4f)
         ) {
             AsyncImage(
                 model = leisureActivityType.toImageUrl(),
@@ -43,14 +46,14 @@ fun CategoryCard(leisureActivityType: LeisureActivityType) {
                     .background(
                         brush = Brush.verticalGradient(
                             colors = listOf(
-                                MaterialTheme.colorScheme.primaryContainer,
-                                MaterialTheme.colorScheme.surface
+                                MaterialTheme.colorScheme.surface,
+                                MaterialTheme.colorScheme.primaryContainer
                             ),
                         ),
                         alpha = 0.8f
                     )
                     .padding(vertical = 4.dp, horizontal = 8.dp),
-                text = leisureActivityType.name,
+                text = stringResource(id = leisureActivityType.toStringResource()),
                 textAlign = TextAlign.Center
             )
         }
@@ -58,8 +61,9 @@ fun CategoryCard(leisureActivityType: LeisureActivityType) {
 
 }
 
-@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-fun CategoryCardPreview() {
+fun CategoryCardLightMode() {
     CategoryCard(leisureActivityType = LeisureActivityType.EDUCATION)
 }
