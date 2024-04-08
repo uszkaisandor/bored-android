@@ -19,7 +19,7 @@ fun PersonIcon(modifier: Modifier = Modifier, tintColor: Color) {
         contentDescription = null,
         tint = tintColor,
         modifier = modifier
-            .size(32.dp)
+            .size(28.dp)
             .background(Color.Transparent)
             .clip(CircleShape)
     )

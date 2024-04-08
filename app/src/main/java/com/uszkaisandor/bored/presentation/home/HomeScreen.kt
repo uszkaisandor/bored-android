@@ -40,12 +40,10 @@ fun HomeScreen(
                 .background(MaterialTheme.colorScheme.background),
             verticalArrangement = Arrangement.Top,
         ) {
-            uiState.currentLeisureActivity?.let {
-                LeisureActivityCard(
-                    modifier = Modifier.padding(20.dp),
-                    leisureActivity = it
-                )
-            }
+            LeisureActivityCard(
+                modifier = Modifier.padding(20.dp),
+                leisureActivity = uiState.currentLeisureActivity
+            )
             Spacer(modifier = Modifier.weight(1f))
             Button(
                 modifier = modifier
