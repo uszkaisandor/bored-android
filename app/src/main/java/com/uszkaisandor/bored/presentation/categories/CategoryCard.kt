@@ -12,6 +12,10 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -24,6 +28,7 @@ import coil.compose.AsyncImage
 import com.uszkaisandor.bored.domain.LeisureActivityType
 import com.uszkaisandor.bored.domain.toImageUrl
 import com.uszkaisandor.bored.domain.toStringResource
+import com.uszkaisandor.bored.presentation.common.shimmerBrush
 
 @Composable
 fun CategoryCard(leisureActivityType: LeisureActivityType) {
@@ -33,10 +38,20 @@ fun CategoryCard(leisureActivityType: LeisureActivityType) {
                 .fillMaxWidth()
                 .aspectRatio(1.4f)
         ) {
+            var showShimmer by remember { mutableStateOf(true) }
+
             AsyncImage(
                 model = leisureActivityType.toImageUrl(),
+                modifier = Modifier
+                    .background(
+                        shimmerBrush(
+                            targetValue = 1200f,
+                            showShimmer = showShimmer
+                        )
+                    ),
                 contentDescription = null,
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
+                onSuccess = { showShimmer = false }
             )
             Text(
                 modifier = Modifier
@@ -53,8 +68,12 @@ fun CategoryCard(leisureActivityType: LeisureActivityType) {
                         alpha = 0.8f
                     )
                     .padding(vertical = 4.dp, horizontal = 8.dp),
-                text = stringResource(id = leisureActivityType.toStringResource()),
-                textAlign = TextAlign.Center
+                text = stringResource(
+                    id = leisureActivityType.toStringResource(),
+                ),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface
             )
         }
     }
