@@ -1,6 +1,7 @@
 package com.uszkaisandor.bored.domain
 
 import androidx.compose.ui.graphics.Color
+import com.uszkaisandor.bored.R
 import com.uszkaisandor.bored.ui.theme.ExtendedColors
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -58,4 +59,30 @@ fun LeisureActivityType.toColor(extendedColors: ExtendedColors): Color = when (t
     LeisureActivityType.RELAXATION -> extendedColors.relaxation
     LeisureActivityType.MUSIC -> extendedColors.music
     LeisureActivityType.BUSYWORK -> extendedColors.busyWork
+}
+
+fun LeisureActivityType.toImageUrl(): String = when (this) {
+    LeisureActivityType.EDUCATION -> "https://thumbs.dreamstime.com/z/school-supplies-wooden-table-background-frame-made-stationery-blank-paper-card-center-education-studying-back-to-146352750.jpg"
+    LeisureActivityType.RECREATION -> "https://images.pexels.com/photos/287240/pexels-photo-287240.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    LeisureActivityType.SOCIAL -> "https://images.pexels.com/photos/20770025/pexels-photo-20770025/free-photo-of-colorful-powder-over-people-at-festival.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    LeisureActivityType.DIY -> "https://images.pexels.com/photos/209235/pexels-photo-209235.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    LeisureActivityType.CHARITY -> "https://images.pexels.com/photos/6994982/pexels-photo-6994982.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    LeisureActivityType.COOKING -> "https://images.pexels.com/photos/2284166/pexels-photo-2284166.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    LeisureActivityType.RELAXATION -> "https://images.pexels.com/photos/904616/pexels-photo-904616.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    LeisureActivityType.MUSIC -> "https://images.pexels.com/photos/1389429/pexels-photo-1389429.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    LeisureActivityType.BUSYWORK -> "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+}
+
+fun LeisureActivityType.toStringResource(): Int {
+    return when (this) {
+        LeisureActivityType.EDUCATION -> R.string.education
+        LeisureActivityType.RECREATION -> R.string.recreation
+        LeisureActivityType.SOCIAL -> R.string.social
+        LeisureActivityType.DIY -> R.string.diy
+        LeisureActivityType.CHARITY -> R.string.charity
+        LeisureActivityType.COOKING -> R.string.cooking
+        LeisureActivityType.RELAXATION -> R.string.relaxation
+        LeisureActivityType.MUSIC -> R.string.music
+        LeisureActivityType.BUSYWORK -> R.string.busywork
+    }
 }

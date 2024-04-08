@@ -42,14 +42,14 @@ fun HomeScreen(
         ) {
             uiState.currentLeisureActivity?.let {
                 LeisureActivityCard(
-                    modifier = Modifier.padding(16.dp),
+                    modifier = Modifier.padding(20.dp),
                     leisureActivity = it
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
             Button(
                 modifier = modifier
-                    .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+                    .padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
                     .height(56.dp)
                     .fillMaxWidth(),
                 onClick = { viewModel.onButtonClicked() }
