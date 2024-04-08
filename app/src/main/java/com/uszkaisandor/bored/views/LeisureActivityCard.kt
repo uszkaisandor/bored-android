@@ -2,12 +2,17 @@ package com.uszkaisandor.bored.views
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
@@ -27,6 +32,7 @@ import com.uszkaisandor.bored.domain.LeisureActivity
 import com.uszkaisandor.bored.domain.toColor
 import com.uszkaisandor.bored.domain.toEmoji
 import com.uszkaisandor.bored.presentation.common.shimmerBrush
+import com.uszkaisandor.bored.presentation.favourites.FavouriteButton
 import com.uszkaisandor.bored.presentation.home.sampleLeisureActivity
 import com.uszkaisandor.bored.ui.theme.AppTheme
 import com.uszkaisandor.bored.ui.theme.ExtendedTheme
@@ -68,20 +74,33 @@ fun LeisureActivityCard(
                 )
             }
 
-            Box(
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .wrapContentSize()
-                    .background(color = accentColor, shape = CircleShape)
-                    .padding(8.dp)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
             ) {
                 Text(
                     modifier = Modifier
-                        .align(Alignment.Center),
+                        .wrapContentSize()
+                        .background(color = accentColor, shape = CircleShape)
+                        .padding(8.dp),
                     text = leisureActivity.type.toEmoji(),
                     style = MaterialTheme.typography.headlineSmall,
                 )
+
+                Spacer(modifier = Modifier.width(12.dp))
+
+                FavouriteButton(
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.surface),
+                    isFavourite = true,
+                    onClicked = {}
+                )
             }
+
+            Spacer(modifier = Modifier.height(12.dp))
 
             SliderWithTitle(
                 title = stringResource(id = R.string.price_range),
