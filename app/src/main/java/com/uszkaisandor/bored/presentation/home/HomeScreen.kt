@@ -87,5 +87,6 @@ val sampleLeisureActivity = LeisureActivity(
     link = "",
     id = "",
     participants = 3,
-    priceRange = 0.71f
+    priceRange = 0.71f,
+    isFavourite = true
 )

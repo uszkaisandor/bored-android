@@ -6,11 +6,11 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class LeisureActivityDto(
-    val activity: String,
+    @SerialName("key") val id: String,
+    @SerialName("activity") val name: String,
     val accessibility: Float,
     val type: LeisureActivityType,
     val participants: Int,
     val price: Float,
-    val link: String,
-    @SerialName("key") val id: String
+    val link: String? = null
 )

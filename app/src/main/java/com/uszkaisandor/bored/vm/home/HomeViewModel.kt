@@ -45,7 +45,11 @@ class HomeViewModel @Inject constructor(
 
     fun onFavouriteChecked(isChecked: Boolean) {
         viewModelScope.launch {
-            repository.setIsFavourite(uiState.value.currentLeisureActivity!!.id, isChecked)
+            val currentLeisureActivity = uiState.value.currentLeisureActivity!!
+            _uiState.update { state ->
+                state.copy(currentLeisureActivity = currentLeisureActivity.copy(isFavourite = isChecked))
+            }
+            repository.setIsFavourite(currentLeisureActivity.id, isChecked)
         }
     }
 

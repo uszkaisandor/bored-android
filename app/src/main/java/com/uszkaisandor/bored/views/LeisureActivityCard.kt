@@ -96,7 +96,7 @@ fun LeisureActivityCard(
                         .size(50.dp)
                         .clip(CircleShape)
                         .background(MaterialTheme.colorScheme.surface),
-                    isFavourite = true,
+                    isFavourite = leisureActivity.isFavourite,
                     onClicked = { isChecked ->
                         onFavouriteChecked(isChecked)
                     }

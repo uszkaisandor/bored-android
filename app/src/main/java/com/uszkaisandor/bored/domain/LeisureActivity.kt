@@ -1,6 +1,6 @@
 package com.uszkaisandor.bored.domain
 
-import com.uszkaisandor.bored.network.dto.LeisureActivityDto
+import com.uszkaisandor.bored.persistence.entity.LeisureActivityEntity
 
 data class LeisureActivity(
     val id: String,
@@ -9,16 +9,18 @@ data class LeisureActivity(
     val participants: Int,
     val accessibility: Float,
     val priceRange: Float,
-    val link: String
+    val isFavourite: Boolean,
+    val link: String? = null
 )
 
-fun LeisureActivityDto.toLeisureActivity() = LeisureActivity(
-    name = activity,
+fun LeisureActivityEntity.toLeisureActivity() = LeisureActivity(
+    id = id,
+    name = name,
     accessibility = accessibility,
     type = type,
     participants = participants,
-    priceRange = price,
+    priceRange = priceRange,
+    isFavourite = isFavourite,
     link = link,
-    id = id
 )
 
