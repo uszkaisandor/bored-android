@@ -1,5 +1,6 @@
 package com.uszkaisandor.bored.persistence.dao
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -22,5 +23,8 @@ interface LeisureActivityDao {
 
     @Query("UPDATE activities SET isFavourite = :favourite WHERE id = :id")
     suspend fun updateFavourite(id: String, favourite: Boolean)
+
+    @Query("SELECT * FROM activities WHERE isFavourite = 1")
+    fun getFavoriteActivities(): PagingSource<Int, LeisureActivityEntity>
 
 }

@@ -1,5 +1,9 @@
 package com.uszkaisandor.bored.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.uszkaisandor.bored.domain.LeisureActivity
 import com.uszkaisandor.bored.domain.toLeisureActivity
 import com.uszkaisandor.bored.network.api.BoredApi
@@ -12,6 +16,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class LeisureActivityRepositoryImpl @Inject constructor(
@@ -36,6 +41,14 @@ class LeisureActivityRepositoryImpl @Inject constructor(
 
     override suspend fun setIsFavourite(id: String, checked: Boolean) {
         leisureActivityDao.updateFavourite(id = id, favourite = checked)
+    }
+
+    override fun getFavoriteActivities(): Flow<PagingData<LeisureActivity>> = Pager(
+        config = PagingConfig(pageSize = 20)
+    ) {
+        leisureActivityDao.getFavoriteActivities()
+    }.flow.map { pagingData ->
+        pagingData.map { it.toLeisureActivity() }
     }
 
 }
