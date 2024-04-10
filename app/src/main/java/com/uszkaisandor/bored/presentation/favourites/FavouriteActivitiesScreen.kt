@@ -31,7 +31,7 @@ fun FavouriteActivitiesScreen(
     val pagingItems = viewModel.activityPagingDataFlow.collectAsLazyPagingItems()
 
     Box(modifier = Modifier.fillMaxSize()) {
-        if (pagingItems.loadState.refresh is LoadState.Loading) {
+        if (pagingItems.loadState.refresh is LoadState.Loading && pagingItems.itemCount == 0) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         } else {
             LazyColumn(
@@ -45,7 +45,7 @@ fun FavouriteActivitiesScreen(
                     key = pagingItems.itemKey { it.id },
                 ) { index ->
                     pagingItems[index]?.let {
-                        LeisureActivityListItem(it)
+                        LeisureActivityListItem(it, viewModel::onFavouriteChecked)
                     }
                 }
                 item {

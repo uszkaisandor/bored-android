@@ -13,11 +13,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class FavouriteActivitiesViewModel @Inject constructor(
-    repository: LeisureActivityRepository
+    private val repository: LeisureActivityRepository
 ) : BaseViewModel<FavouriteActivitiesUiState>, ViewModel() {
 
     private val _uiState = MutableStateFlow(FavouriteActivitiesUiState)
@@ -27,5 +28,11 @@ class FavouriteActivitiesViewModel @Inject constructor(
         repository.getFavoriteActivities()
             .flowOn(Dispatchers.IO)
             .cachedIn(viewModelScope)
+
+    fun onFavouriteChecked(id: String) {
+        viewModelScope.launch {
+            repository.setIsFavourite(id, false)
+        }
+    }
 
 }

@@ -4,7 +4,7 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
@@ -32,7 +32,7 @@ fun FavouriteButton(
         Crossfade(
             modifier = Modifier
                 .align(Alignment.Center)
-                .size(32.dp),
+                .padding(8.dp),
             targetState = isFavourite,
         ) { isFavourite ->
             Icon(
