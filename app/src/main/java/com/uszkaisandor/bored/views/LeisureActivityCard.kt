@@ -41,6 +41,7 @@ import com.uszkaisandor.bored.ui.theme.Typography
 @Composable
 fun LeisureActivityCard(
     leisureActivity: LeisureActivity?,
+    onFavouriteChecked: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     leisureActivity?.let {
@@ -96,7 +97,9 @@ fun LeisureActivityCard(
                         .clip(CircleShape)
                         .background(MaterialTheme.colorScheme.surface),
                     isFavourite = true,
-                    onClicked = {}
+                    onClicked = { isChecked ->
+                        onFavouriteChecked(isChecked)
+                    }
                 )
             }
 
@@ -145,6 +148,6 @@ fun LeisureActivityCard(
 @Composable
 fun LeisureActivityCardPreview(leisureActivity: LeisureActivity = sampleLeisureActivity) {
     AppTheme {
-        LeisureActivityCard(sampleLeisureActivity)
+        LeisureActivityCard(sampleLeisureActivity, {})
     }
 }
