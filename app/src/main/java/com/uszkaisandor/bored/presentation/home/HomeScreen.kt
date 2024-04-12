@@ -42,7 +42,8 @@ fun HomeScreen(
         ) {
             LeisureActivityCard(
                 modifier = Modifier.padding(20.dp),
-                leisureActivity = uiState.currentLeisureActivity
+                leisureActivity = uiState.currentLeisureActivity,
+                onFavouriteChecked = viewModel::onFavouriteChecked
             )
             Spacer(modifier = Modifier.weight(1f))
             Button(
@@ -84,7 +85,8 @@ val sampleLeisureActivity = LeisureActivity(
     type = LeisureActivityType.MUSIC,
     accessibility = 0.3f,
     link = "",
-    key = "",
+    id = "",
     participants = 3,
-    priceRange = 0.71f
+    priceRange = 0.71f,
+    isFavourite = true
 )

@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.ramcosta.composedestinations.spec.DirectionDestinationSpec
 import com.uszkaisandor.bored.R
 import com.uszkaisandor.bored.presentation.destinations.CategoriesScreenDestination
-import com.uszkaisandor.bored.presentation.destinations.FavouritesScreenDestination
+import com.uszkaisandor.bored.presentation.destinations.FavouriteActivitiesScreenDestination
 import com.uszkaisandor.bored.presentation.destinations.HomeScreenDestination
 
 enum class BottomBarDestination(
@@ -29,7 +29,7 @@ enum class BottomBarDestination(
         R.string.categories_tab_title
     ),
     Favourites(
-        FavouritesScreenDestination,
+        FavouriteActivitiesScreenDestination,
         Icons.Outlined.FavoriteBorder,
         Icons.Filled.Favorite,
         R.string.favourite_tab_title

@@ -2,7 +2,7 @@ package com.uszkaisandor.bored.vm.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.uszkaisandor.bored.repository.LeisureActivityRepository
+import com.uszkaisandor.bored.repository.LeisureActivityRepositoryImpl
 import com.uszkaisandor.bored.vm.common.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: LeisureActivityRepository
+    private val repository: LeisureActivityRepositoryImpl
 ) : ViewModel(), BaseViewModel<HomeUiState> {
 
     private val _uiState = MutableStateFlow(HomeUiState())
@@ -41,6 +41,16 @@ class HomeViewModel @Inject constructor(
 
     fun onButtonClicked() {
         getRandomActivity()
+    }
+
+    fun onFavouriteChecked(isChecked: Boolean) {
+        viewModelScope.launch {
+            val currentLeisureActivity = uiState.value.currentLeisureActivity!!
+            _uiState.update { state ->
+                state.copy(currentLeisureActivity = currentLeisureActivity.copy(isFavourite = isChecked))
+            }
+            repository.setIsFavourite(currentLeisureActivity.id, isChecked)
+        }
     }
 
 }
