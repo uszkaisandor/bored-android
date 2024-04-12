@@ -1,5 +1,8 @@
 package com.uszkaisandor.bored.presentation.favourites
 
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -21,6 +24,7 @@ import androidx.paging.compose.itemKey
 import com.ramcosta.composedestinations.annotation.Destination
 import com.uszkaisandor.bored.views.LeisureActivityListItem
 
+@OptIn(ExperimentalFoundationApi::class)
 @Destination
 @Composable
 fun FavouriteActivitiesScreen(
@@ -45,7 +49,16 @@ fun FavouriteActivitiesScreen(
                     key = pagingItems.itemKey { it.id },
                 ) { index ->
                     pagingItems[index]?.let {
-                        LeisureActivityListItem(it, viewModel::onFavouriteChecked)
+                        LeisureActivityListItem(
+                            modifier = Modifier.animateItemPlacement(
+                                animationSpec = tween(
+                                    durationMillis = 200,
+                                    easing = FastOutLinearInEasing
+                                )
+                            ),
+                            leisureActivity = it,
+                            onDeleteClicked = viewModel::onFavouriteChecked
+                        )
                     }
                 }
                 item {
