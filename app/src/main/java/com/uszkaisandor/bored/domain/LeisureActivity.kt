@@ -21,6 +21,6 @@ fun LeisureActivityEntity.toLeisureActivity() = LeisureActivity(
     participants = participants,
     priceRange = priceRange,
     isFavourite = isFavourite,
-    link = link,
+    link = link
 )
 
