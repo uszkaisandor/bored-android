@@ -129,8 +129,7 @@ fun LeisureActivityCard(
                 persons = leisureActivity.participants,
                 modifier = Modifier
                     .padding(bottom = 12.dp)
-                    .fillMaxWidth(),
-                color = accentColor
+                    .fillMaxWidth()
             )
             leisureActivity.link?.let {
                 Spacer(modifier = Modifier.height(8.dp))
