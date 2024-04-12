@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -17,6 +16,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,6 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,6 +44,7 @@ import com.uszkaisandor.bored.ui.theme.Typography
 fun LeisureActivityCard(
     leisureActivity: LeisureActivity?,
     onFavouriteChecked: (Boolean) -> Unit,
+    onLinkClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     leisureActivity?.let {
@@ -49,7 +52,7 @@ fun LeisureActivityCard(
             modifier = modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .heightIn(min = 200.dp)
+                .animateContentSize()
                 .background(
                     color = MaterialTheme.colorScheme.surfaceContainer,
                     shape = RoundedCornerShape(16.dp)
@@ -74,7 +77,6 @@ fun LeisureActivityCard(
                     color = MaterialTheme.colorScheme.onSurface
                 )
             }
-
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -130,6 +132,22 @@ fun LeisureActivityCard(
                     .fillMaxWidth(),
                 color = accentColor
             )
+            leisureActivity.link?.let {
+                Spacer(modifier = Modifier.height(8.dp))
+                ClickableText(
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(horizontal = 16.dp, vertical = 4.dp),
+                    text = AnnotatedString(
+                        text = it,
+                        spanStyle = SpanStyle(color = ExtendedTheme.colors.link)
+                    ),
+                    style = MaterialTheme.typography.bodyMedium,
+                    onClick = { _ ->
+                        onLinkClicked(it)
+                    },
+                )
+            }
         }
     } ?: run {
         Box(
@@ -148,6 +166,8 @@ fun LeisureActivityCard(
 @Composable
 fun LeisureActivityCardPreview(leisureActivity: LeisureActivity = sampleLeisureActivity) {
     AppTheme {
-        LeisureActivityCard(sampleLeisureActivity, {})
+        LeisureActivityCard(
+            sampleLeisureActivity, {}, {}
+        )
     }
 }

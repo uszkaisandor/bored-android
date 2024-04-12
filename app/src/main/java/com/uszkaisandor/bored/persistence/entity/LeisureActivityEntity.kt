@@ -24,6 +24,6 @@ fun LeisureActivityDto.toEntity() = LeisureActivityEntity(
     participants = participants,
     accessibility = accessibility,
     priceRange = price,
-    link = link,
+    link = link.takeIf { !it.isNullOrBlank() },
     isFavourite = false
 )

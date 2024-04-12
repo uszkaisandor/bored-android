@@ -25,7 +25,8 @@ data class ExtendedColors(
     val relaxation: Color,
     val music: Color,
     val busyWork: Color,
-    val favourite: Color
+    val favourite: Color,
+    val link: Color
 )
 
 private val lightScheme = lightColorScheme(
@@ -228,7 +229,8 @@ val extendedLight = ExtendedColors(
     relaxation = Color(0xFFFF9933),
     music = Color(0xFF33B5E5),
     busyWork = Color(0xFFAA66CC),
-    favourite = Color.Red
+    favourite = Color.Red,
+    link = Color(0xFF005CA2)
 )
 
 val extendedDark = ExtendedColors(
@@ -241,7 +243,8 @@ val extendedDark = ExtendedColors(
     relaxation = Color(0xFF775A0B),
     music = Color(0xFF775A0B),
     busyWork = Color(0xFF775A0B),
-    favourite = Color.Red
+    favourite = Color.Red,
+    link = Color(0xFF33B5E5)
 )
 
 val LocalExtendedColors = staticCompositionLocalOf {
@@ -255,7 +258,8 @@ val LocalExtendedColors = staticCompositionLocalOf {
         relaxation = Color.Unspecified,
         music = Color.Unspecified,
         busyWork = Color.Unspecified,
-        favourite = Color.Unspecified
+        favourite = Color.Unspecified,
+        link = Color.Unspecified
     )
 }
 

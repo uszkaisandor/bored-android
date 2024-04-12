@@ -1,5 +1,9 @@
 package com.uszkaisandor.bored.presentation.home
 
+import android.content.Intent
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -34,6 +38,10 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     BaseScreen(viewModel = viewModel) { uiState ->
+        val openUrlLauncher = rememberLauncherForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { _ -> }
+
         Column(
             modifier = modifier
                 .fillMaxSize()
@@ -43,7 +51,12 @@ fun HomeScreen(
             LeisureActivityCard(
                 modifier = Modifier.padding(20.dp),
                 leisureActivity = uiState.currentLeisureActivity,
-                onFavouriteChecked = viewModel::onFavouriteChecked
+                onFavouriteChecked = viewModel::onFavouriteChecked,
+                onLinkClicked = {
+                    openUrlLauncher.launch(
+                        Intent(Intent.ACTION_VIEW, Uri.parse(it))
+                    )
+                }
             )
             Spacer(modifier = Modifier.weight(1f))
             Button(
@@ -84,8 +97,8 @@ val sampleLeisureActivity = LeisureActivity(
     name = "Learn guitar",
     type = LeisureActivityType.MUSIC,
     accessibility = 0.3f,
-    link = "",
-    id = "",
+    link = "https://boredapi.com",
+    id = "123",
     participants = 3,
     priceRange = 0.71f,
     isFavourite = true
