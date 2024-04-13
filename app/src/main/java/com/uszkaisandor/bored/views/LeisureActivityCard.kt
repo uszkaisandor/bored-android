@@ -26,7 +26,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
@@ -132,40 +131,48 @@ fun LeisureActivityCard(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            SliderWithTitle(
+            leisureActivity.link?.let {
+                ClickableText(
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(horizontal = 16.dp, vertical = 4.dp),
+                    text = AnnotatedString(
+                        text = it,
+                        spanStyle = SpanStyle(color = ExtendedTheme.colors.link)
+                    ),
+                    style = MaterialTheme.typography.bodyMedium,
+                    onClick = { _ ->
+                        onLinkClicked(it)
+                    },
+                )
+            }
+
+
+            ProgressbarWithTitle(
                 modifier = Modifier.padding(horizontal = 16.dp),
                 title = stringResource(id = R.string.price_range),
                 value = leisureActivity.priceRange,
-                range = (0f..1f),
-                steps = 8,
-                isEnabled = false,
-                onValueChanged = {},
             )
 
-            SliderWithTitle(
+            ProgressbarWithTitle(
                 modifier = Modifier.padding(horizontal = 16.dp),
                 title = stringResource(id = R.string.accessibility),
                 value = kotlin.math.abs(1 - leisureActivity.accessibility),
-                range = (0f..1f),
-                steps = 8,
-                isEnabled = false,
-                onValueChanged = {},
             )
 
             PersonsView(
                 persons = leisureActivity.participants,
                 modifier = Modifier
-                    .padding(bottom = 12.dp, start = 16.dp, end = 16.dp)
+                    .padding(top = 8.dp, bottom = 12.dp, start = 16.dp, end = 16.dp)
                     .fillMaxWidth()
             )
-
-            Spacer(modifier = Modifier.height(8.dp))
 
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
-                    .wrapContentHeight(),
+                    .wrapContentHeight()
+                    .animateContentSize(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
@@ -186,23 +193,6 @@ fun LeisureActivityCard(
                         .padding(4.dp),
                     text = leisureActivity.type.toEmoji(),
                     style = MaterialTheme.typography.labelMedium,
-                )
-            }
-
-            leisureActivity.link?.let {
-                Spacer(modifier = Modifier.height(8.dp))
-                ClickableText(
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .padding(horizontal = 16.dp, vertical = 4.dp),
-                    text = AnnotatedString(
-                        text = it,
-                        spanStyle = SpanStyle(color = ExtendedTheme.colors.link)
-                    ),
-                    style = MaterialTheme.typography.bodyMedium,
-                    onClick = { _ ->
-                        onLinkClicked(it)
-                    },
                 )
             }
         }
