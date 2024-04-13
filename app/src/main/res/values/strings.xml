@@ -18,6 +18,6 @@
     <string name="busywork">Busywork</string>
     <string name="participants">Participants</string>
 
-    <string name="favourites_empty_title">There are no favourite activities. To add any, click on hearth icon on any activity cards.</string>
+    <string name="favourites_empty_title">There are no favourite activities. To add any, click on hearth icon on any activity card.</string>
     <string name="category">Category: %1$s</string>
 </resources>
