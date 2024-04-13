@@ -66,6 +66,9 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material:1.6.5")
 
+    implementation("androidx.core:core-splashscreen:1.0.1")
+    implementation("com.airbnb.android:lottie-compose:6.0.0")
+
     implementation("com.google.dagger:hilt-android:2.49")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
     kapt("com.google.dagger:hilt-android-compiler:2.49")
