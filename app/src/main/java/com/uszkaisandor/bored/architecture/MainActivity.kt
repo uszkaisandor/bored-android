@@ -3,34 +3,26 @@ package com.uszkaisandor.bored.architecture
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.runtime.collectAsState
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
-import com.uszkaisandor.bored.ui.theme.BoredTheme
-import com.uszkaisandor.bored.views.ActivityRecommendation
-import com.uszkaisandor.bored.vm.ActivitiesViewModel
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.uszkaisandor.bored.presentation.app.BoredApp
+import com.uszkaisandor.bored.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: ActivitiesViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen().setKeepOnScreenCondition { false }
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
-            BoredTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    val currentActivity = viewModel.activity.collectAsState()
-                    currentActivity.value?.let {
-                        ActivityRecommendation(it, onButtonClick = viewModel::onButtonClicked)
-                    }
+            AppTheme {
+                CompositionLocalProvider {
+                    BoredApp(modifier = Modifier.safeDrawingPadding())
                 }
             }
         }
