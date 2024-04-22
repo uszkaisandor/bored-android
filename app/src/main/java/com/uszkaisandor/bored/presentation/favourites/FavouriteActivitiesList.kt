@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,12 +19,13 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemKey
 import com.uszkaisandor.bored.domain.LeisureActivity
 import com.uszkaisandor.bored.views.LeisureActivityListItem
+import com.uszkaisandor.bored.views.SwipeToDeleteBox
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FavouriteActivitiesList(
     pagingItems: LazyPagingItems<LeisureActivity>,
-    onFavouriteChecked: (String) -> Unit
+    onSwipedToDelete: (String) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -36,16 +38,22 @@ fun FavouriteActivitiesList(
             key = pagingItems.itemKey { it.id },
         ) { index ->
             pagingItems[index]?.let {
-                LeisureActivityListItem(
-                    modifier = Modifier.animateItemPlacement(
-                        animationSpec = tween(
-                            durationMillis = 200,
-                            easing = FastOutLinearInEasing
-                        )
-                    ),
-                    leisureActivity = it,
-                    onDeleteClicked = onFavouriteChecked
-                )
+                SwipeToDeleteBox(
+                    shape = RoundedCornerShape(16.dp),
+                    onDelete = {
+                        onSwipedToDelete(it.id)
+                    }
+                ) {
+                    LeisureActivityListItem(
+                        modifier = Modifier.animateItemPlacement(
+                            animationSpec = tween(
+                                durationMillis = 200,
+                                easing = FastOutLinearInEasing
+                            )
+                        ),
+                        leisureActivity = it
+                    )
+                }
             }
         }
         item {

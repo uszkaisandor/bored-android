@@ -29,7 +29,7 @@ class FavouriteActivitiesViewModel @Inject constructor(
             .flowOn(Dispatchers.IO)
             .cachedIn(viewModelScope)
 
-    fun onFavouriteChecked(id: String) {
+    fun onSwipedToDelete(id: String) {
         viewModelScope.launch {
             repository.setIsFavourite(id, false)
         }

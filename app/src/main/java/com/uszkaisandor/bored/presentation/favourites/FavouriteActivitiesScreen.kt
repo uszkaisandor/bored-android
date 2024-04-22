@@ -1,6 +1,5 @@
 package com.uszkaisandor.bored.presentation.favourites
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
@@ -16,7 +15,6 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.ramcosta.composedestinations.annotation.Destination
 import com.uszkaisandor.bored.R
 
-@OptIn(ExperimentalFoundationApi::class)
 @Destination
 @Composable
 fun FavouriteActivitiesScreen(
@@ -38,7 +36,7 @@ fun FavouriteActivitiesScreen(
             } else {
                 FavouriteActivitiesList(
                     pagingItems = pagingItems,
-                    onFavouriteChecked = viewModel::onFavouriteChecked
+                    onSwipedToDelete = viewModel::onSwipedToDelete
                 )
             }
         }
