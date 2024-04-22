@@ -3,7 +3,7 @@
     <string name="get_new_activity">Recommend me new activity!</string>
     <string name="accessibility">Accessibility</string>
     <string name="price_range">Price range</string>
-    <string name="home_tab_title">Bored</string>
+    <string name="home_tab_title">Random activity</string>
     <string name="categories_tab_title">Categories</string>
     <string name="favourite_tab_title">Favourites</string>
 
@@ -18,6 +18,6 @@
     <string name="busywork">Busywork</string>
     <string name="participants">Participants</string>
 
-    <string name="favourites_empty_title">There are no favourite activities. To add any, click on hearth icon on any activity cards.</string>
+    <string name="favourites_empty_title">There are no favourite activities. To add any, click on hearth icon on any activity card.</string>
     <string name="category">Category: %1$s</string>
 </resources>
