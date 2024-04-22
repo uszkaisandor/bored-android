@@ -82,7 +82,7 @@ fun LeisureActivityCard(
                     modifier = Modifier
                         .fillMaxWidth()
                         .alpha(0.7f)
-                        .aspectRatio(2f)
+                        .aspectRatio(1.6f)
                         .background(
                             shimmerBrush(
                                 targetValue = 1200f,
@@ -122,9 +122,9 @@ fun LeisureActivityCard(
                             ),
                             alpha = 0.8f
                         )
-                        .padding(16.dp),
+                        .padding(horizontal = 16.dp, vertical = 12.dp),
                     textAlign = TextAlign.Center,
-                    style = Typography.titleLarge,
+                    style = Typography.titleMedium,
                     color = MaterialTheme.colorScheme.onBackground
                 )
             }

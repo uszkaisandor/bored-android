@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.uszkaisandor.bored.R
 
@@ -30,7 +31,11 @@ fun EmptyListState(lottieResId: Int, title: String) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(lottieResId))
-        LottieAnimation(composition, modifier = Modifier.size(200.dp))
+        LottieAnimation(
+            modifier = Modifier.size(200.dp),
+            composition = composition,
+            iterations = LottieConstants.IterateForever
+        )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             modifier = Modifier.padding(horizontal = 20.dp),
