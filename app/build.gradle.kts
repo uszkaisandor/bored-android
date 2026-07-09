@@ -36,7 +36,9 @@ android {
 dependencies {
     implementation(project(":core:presentation:designsystem"))
     implementation(project(":core:presentation:ui"))
+    implementation(project(":core:domain"))
     implementation(project(":leisure:presentation"))
+    implementation(project(":settings:presentation"))
     // Runtime feature graph: brings the Koin modules for the repository, seeder,
     // database and Json into the app.
     implementation(project(":leisure:data"))
@@ -47,6 +49,7 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.runtime.compose)
 
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material3)

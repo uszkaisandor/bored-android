@@ -16,6 +16,7 @@ import androidx.navigation3.ui.NavDisplay
 import com.uszkaisandor.bored.leisure.presentation.navigation.HomeKey
 import com.uszkaisandor.bored.leisure.presentation.navigation.leisureEntry
 import com.uszkaisandor.bored.navigation.BottomBar
+import com.uszkaisandor.bored.settings.presentation.navigation.settingsEntry
 
 @Composable
 fun BoredApp(modifier: Modifier = Modifier) {
@@ -46,7 +47,9 @@ fun BoredApp(modifier: Modifier = Modifier) {
                         (fadeOut(tween(320)) + scaleOut(tween(320), targetScale = 0.90f))
                 },
                 entryProvider = { key ->
-                    leisureEntry(key) ?: error("Unknown navigation key: $key")
+                    leisureEntry(key)
+                        ?: settingsEntry(key)
+                        ?: error("Unknown navigation key: $key")
                 },
             )
         }

@@ -22,6 +22,7 @@ kotlinxCoroutines = "1.10.2"
 room = "2.8.4"
 paging = "3.4.0"
 graphicsShapes = "1.0.1"
+datastore = "1.2.1"
 
 junit = "4.13.2"
 androidxTestExtJunit = "1.3.0"
@@ -65,6 +66,7 @@ androidx-room-paging = { group = "androidx.room", name = "room-paging", version.
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 androidx-paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "paging" }
 androidx-graphics-shapes = { group = "androidx.graphics", name = "graphics-shapes", version.ref = "graphicsShapes" }
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }

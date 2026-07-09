@@ -5,6 +5,7 @@ import com.uszkaisandor.bored.core.data.di.coreDataModule
 import com.uszkaisandor.bored.core.database.di.databaseModule
 import com.uszkaisandor.bored.leisure.data.di.leisureDataModule
 import com.uszkaisandor.bored.leisure.presentation.di.leisurePresentationModule
+import com.uszkaisandor.bored.settings.presentation.di.settingsPresentationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -19,6 +20,7 @@ class BoredApplication : Application() {
                 databaseModule,
                 leisureDataModule,
                 leisurePresentationModule,
+                settingsPresentationModule,
             )
         }
     }
