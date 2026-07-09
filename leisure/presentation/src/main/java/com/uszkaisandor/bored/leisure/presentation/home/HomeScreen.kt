@@ -65,7 +65,7 @@ fun HomeScreen(
                 } else {
                     AnimatedContent(
                         targetState = uiState.currentLeisureActivity,
-                        modifier = Modifier.align(Alignment.TopCenter),
+                        modifier = Modifier.align(Alignment.Center),
                         transitionSpec = {
                             (fadeIn() + scaleIn(initialScale = 0.92f)) togetherWith fadeOut()
                         },
