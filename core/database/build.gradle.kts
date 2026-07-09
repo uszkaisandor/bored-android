@@ -7,6 +7,11 @@ android {
     namespace = "com.uszkaisandor.bored.core.database"
 }
 
+ksp {
+    // Export the Room schema so migrations can be verified later.
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
+
 dependencies {
     implementation(platform(libs.koin.bom))
     implementation(libs.koin.android)

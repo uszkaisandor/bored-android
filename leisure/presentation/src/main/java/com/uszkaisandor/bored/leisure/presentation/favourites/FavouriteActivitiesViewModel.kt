@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 class FavouriteActivitiesViewModel(
     private val repository: LeisureActivityRepository
-) : BaseViewModel<FavouriteActivitiesUiState>, ViewModel() {
+) : ViewModel(), BaseViewModel<FavouriteActivitiesUiState> {
 
     private val _uiState = MutableStateFlow(FavouriteActivitiesUiState)
     override val uiState: StateFlow<FavouriteActivitiesUiState> = _uiState

@@ -25,7 +25,7 @@ class LeisureActivityRepositoryImpl(
         val entity = dao.getRandom()
             ?: throw NoSuchElementException("No activities available in the local dataset")
         emit(entity.toDomain())
-    }.flowOn(Dispatchers.Default)
+    }.flowOn(Dispatchers.IO)
 
     override suspend fun setIsFavourite(id: String, checked: Boolean) {
         dao.updateFavourite(id = id, favourite = checked)

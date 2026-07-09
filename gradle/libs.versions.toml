@@ -17,7 +17,6 @@ koin = "4.1.1"
 kotlinxSerializationJson = "1.9.0"
 kotlinxCoroutines = "1.10.2"
 
-coil = "2.7.0"
 room = "2.8.4"
 paging = "3.4.0"
 
@@ -44,7 +43,6 @@ androidx-compose-material-icons-extended = { group = "androidx.compose.material"
 google-material = { group = "com.google.android.material", name = "material", version.ref = "materialComponents" }
 
 lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie" }
-coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
 koin-bom = { group = "io.insert-koin", name = "koin-bom", version.ref = "koin" }
 koin-core = { group = "io.insert-koin", name = "koin-core" }
