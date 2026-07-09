@@ -50,6 +50,11 @@ fun HomeScreen(
         ) { _ -> }
         val haptic = LocalHapticFeedback.current
 
+        rememberShakeDetector(enabled = !uiState.isLoading) {
+            haptic.performHapticFeedback(HapticFeedbackType.Confirm)
+            viewModel.onButtonClicked()
+        }
+
         Column(
             modifier = modifier
                 .fillMaxSize()
