@@ -23,8 +23,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import com.uszkaisandor.bored.core.designsystem.AppTheme
 import com.uszkaisandor.bored.core.designsystem.Typography
 import com.uszkaisandor.bored.core.ui.BaseScreen
+import com.uszkaisandor.bored.core.ui.rememberAppHaptics
 import com.uszkaisandor.bored.leisure.domain.LeisureActivity
 import com.uszkaisandor.bored.leisure.domain.LeisureActivityType
 import com.uszkaisandor.bored.leisure.presentation.R
@@ -48,10 +47,10 @@ fun HomeScreen(
         val openUrlLauncher = rememberLauncherForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { _ -> }
-        val haptic = LocalHapticFeedback.current
+        val haptics = rememberAppHaptics()
 
         rememberShakeDetector(enabled = !uiState.isLoading) {
-            haptic.performHapticFeedback(HapticFeedbackType.Confirm)
+            haptics.shuffle()
             viewModel.onButtonClicked()
         }
 
@@ -95,7 +94,7 @@ fun HomeScreen(
                     .height(56.dp)
                     .fillMaxWidth(),
                 onClick = {
-                    haptic.performHapticFeedback(HapticFeedbackType.Confirm)
+                    haptics.confirm()
                     viewModel.onButtonClicked()
                 }
             ) {

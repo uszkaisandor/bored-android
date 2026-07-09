@@ -14,6 +14,7 @@ import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,6 +22,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import com.uszkaisandor.bored.core.ui.rememberAppHaptics
 import com.uszkaisandor.bored.leisure.presentation.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,6 +34,14 @@ fun SwipeToDeleteBox(
     content: @Composable () -> Unit
 ) {
     val swipeState = rememberSwipeToDismissBoxState()
+    val haptics = rememberAppHaptics()
+
+    // A single tick the moment the drag crosses into the delete zone.
+    LaunchedEffect(swipeState.targetValue) {
+        if (swipeState.targetValue == SwipeToDismissBoxValue.EndToStart) {
+            haptics.tick()
+        }
+    }
 
     lateinit var icon: ImageVector
     lateinit var alignment: Alignment

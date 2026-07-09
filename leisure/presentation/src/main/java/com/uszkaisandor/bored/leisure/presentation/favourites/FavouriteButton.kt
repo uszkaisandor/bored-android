@@ -18,11 +18,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.uszkaisandor.bored.core.designsystem.ExtendedTheme
+import com.uszkaisandor.bored.core.ui.rememberAppHaptics
 import com.uszkaisandor.bored.leisure.presentation.R
 import kotlinx.coroutines.launch
 
@@ -32,7 +31,7 @@ fun FavouriteButton(
     onClicked: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val haptic = LocalHapticFeedback.current
+    val haptics = rememberAppHaptics()
     val scope = rememberCoroutineScope()
     val scale = remember { Animatable(1f) }
 
@@ -40,10 +39,7 @@ fun FavouriteButton(
         modifier = modifier
             .clickable(
                 onClick = {
-                    haptic.performHapticFeedback(
-                        if (!isFavourite) HapticFeedbackType.ToggleOn
-                        else HapticFeedbackType.ToggleOff
-                    )
+                    haptics.toggle(on = !isFavourite)
                     scope.launch {
                         scale.animateTo(
                             targetValue = 1.25f,
