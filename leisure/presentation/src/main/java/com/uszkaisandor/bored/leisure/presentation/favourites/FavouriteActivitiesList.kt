@@ -19,6 +19,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemKey
 import com.uszkaisandor.bored.leisure.domain.LeisureActivity
+import com.uszkaisandor.bored.leisure.presentation.navigation.sharedActivityBounds
 import com.uszkaisandor.bored.leisure.presentation.views.LeisureActivityListItem
 import com.uszkaisandor.bored.leisure.presentation.views.SwipeToDeleteBox
 
@@ -54,6 +55,7 @@ fun FavouriteActivitiesList(
                                     easing = FastOutLinearInEasing
                                 )
                             )
+                            .sharedActivityBounds(it.id)
                             .clickable { onActivityClick(it.id) },
                         leisureActivity = it
                     )

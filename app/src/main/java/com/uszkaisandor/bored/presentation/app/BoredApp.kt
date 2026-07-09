@@ -1,5 +1,7 @@
 package com.uszkaisandor.bored.presentation.app
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -10,14 +12,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.uszkaisandor.bored.leisure.presentation.navigation.HomeKey
+import com.uszkaisandor.bored.leisure.presentation.navigation.LocalSharedTransitionScope
 import com.uszkaisandor.bored.leisure.presentation.navigation.leisureEntry
 import com.uszkaisandor.bored.navigation.BottomBar
 import com.uszkaisandor.bored.settings.presentation.navigation.settingsEntry
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun BoredApp(modifier: Modifier = Modifier) {
     val backStack = rememberNavBackStack(HomeKey)
@@ -28,9 +33,11 @@ fun BoredApp(modifier: Modifier = Modifier) {
     ) { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
             DailyTipBanner(tip = DailyTipProvider.getTipForToday())
-            NavDisplay(
-                backStack = backStack,
-                onBack = { if (backStack.size > 1) backStack.removeLastOrNull() },
+            SharedTransitionLayout {
+              CompositionLocalProvider(LocalSharedTransitionScope provides this) {
+                NavDisplay(
+                    backStack = backStack,
+                    onBack = { if (backStack.size > 1) backStack.removeLastOrNull() },
                 // Forward: the incoming screen fades and scales up into place.
                 transitionSpec = {
                     (fadeIn(tween(320)) + scaleIn(tween(320), initialScale = 0.94f)) togetherWith
@@ -46,12 +53,14 @@ fun BoredApp(modifier: Modifier = Modifier) {
                     fadeIn(tween(220)) togetherWith
                         (fadeOut(tween(320)) + scaleOut(tween(320), targetScale = 0.90f))
                 },
-                entryProvider = { key ->
-                    leisureEntry(key, onNavigate = { backStack.add(it) })
-                        ?: settingsEntry(key)
-                        ?: error("Unknown navigation key: $key")
-                },
-            )
+                    entryProvider = { key ->
+                        leisureEntry(key, onNavigate = { backStack.add(it) })
+                            ?: settingsEntry(key)
+                            ?: error("Unknown navigation key: $key")
+                    },
+                )
+              }
+            }
         }
     }
 }
