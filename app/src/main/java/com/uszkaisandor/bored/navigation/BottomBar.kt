@@ -20,8 +20,13 @@ fun BottomBar(backStack: NavBackStack<NavKey>) {
                 selected = isSelected,
                 onClick = {
                     if (!isSelected) {
+                        // Keep Home as the root so back from another tab returns
+                        // there instead of exiting the app.
                         backStack.clear()
-                        backStack.add(destination.key)
+                        backStack.add(BottomBarDestination.entries.first().key)
+                        if (destination != BottomBarDestination.entries.first()) {
+                            backStack.add(destination.key)
+                        }
                     }
                 },
                 icon = {

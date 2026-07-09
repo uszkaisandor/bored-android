@@ -23,7 +23,7 @@ fun BoredApp(modifier: Modifier = Modifier) {
             DailyTipBanner(tip = DailyTipProvider.getTipForToday())
             NavDisplay(
                 backStack = backStack,
-                onBack = { backStack.removeLastOrNull() },
+                onBack = { if (backStack.size > 1) backStack.removeLastOrNull() },
                 entryProvider = { key ->
                     leisureEntry(key) ?: error("Unknown navigation key: $key")
                 },
