@@ -7,28 +7,27 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.ramcosta.composedestinations.spec.DirectionDestinationSpec
+import androidx.navigation3.runtime.NavKey
 import com.uszkaisandor.bored.R
-import com.uszkaisandor.bored.presentation.destinations.FavouriteActivitiesScreenDestination
-import com.uszkaisandor.bored.presentation.destinations.HomeScreenDestination
+import com.uszkaisandor.bored.leisure.presentation.navigation.FavouritesKey
+import com.uszkaisandor.bored.leisure.presentation.navigation.HomeKey
 
 enum class BottomBarDestination(
-    val direction: DirectionDestinationSpec,
+    val key: NavKey,
     val unSelectedIcon: ImageVector,
     val selectedIcon: ImageVector,
-    @StringRes val label: Int
+    @StringRes val label: Int,
 ) {
     Home(
-        direction = HomeScreenDestination,
+        key = HomeKey,
         unSelectedIcon = Icons.Outlined.Home,
         selectedIcon = Icons.Filled.Home,
         label = R.string.home_tab_title
     ),
     Favourites(
-        direction = FavouriteActivitiesScreenDestination,
+        key = FavouritesKey,
         unSelectedIcon = Icons.Outlined.FavoriteBorder,
         selectedIcon = Icons.Filled.Favorite,
         label = R.string.favourite_tab_title
     ),
 }
-

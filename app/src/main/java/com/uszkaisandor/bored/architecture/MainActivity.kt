@@ -4,26 +4,20 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.uszkaisandor.bored.presentation.app.BoredApp
-import com.uszkaisandor.bored.ui.theme.AppTheme
-import dagger.hilt.android.AndroidEntryPoint
+import com.uszkaisandor.bored.core.designsystem.AppTheme
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen().setKeepOnScreenCondition { false }
         super.onCreate(savedInstanceState)
+        // Draw behind the system bars; the Scaffold in BoredApp applies the insets.
         enableEdgeToEdge()
         setContent {
             AppTheme {
-                CompositionLocalProvider {
-                    BoredApp(modifier = Modifier.safeDrawingPadding())
-                }
+                BoredApp()
             }
         }
     }

@@ -1,33 +1,33 @@
 package com.uszkaisandor.bored.presentation.app
 
-import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.rememberNavController
-import com.ramcosta.composedestinations.DestinationsNavHost
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.ui.NavDisplay
+import com.uszkaisandor.bored.leisure.presentation.navigation.HomeKey
+import com.uszkaisandor.bored.leisure.presentation.navigation.leisureEntry
 import com.uszkaisandor.bored.navigation.BottomBar
-import com.uszkaisandor.bored.presentation.NavGraphs
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun BoredApp(modifier: Modifier) {
-    val navController = rememberNavController()
+fun BoredApp(modifier: Modifier = Modifier) {
+    val backStack = rememberNavBackStack(HomeKey)
 
     Scaffold(
         modifier = modifier,
-        bottomBar = {
-            BottomBar(navController)
-        }
+        bottomBar = { BottomBar(backStack) }
     ) { paddingValues ->
-        DestinationsNavHost(
-            modifier = modifier
-                .padding(bottom = paddingValues.calculateBottomPadding()),
-            navController = navController,
-            startRoute = NavGraphs.root.startRoute,
-            navGraph = NavGraphs.root
-        )
+        Column(modifier = Modifier.padding(paddingValues)) {
+            DailyTipBanner(tip = DailyTipProvider.getTipForToday())
+            NavDisplay(
+                backStack = backStack,
+                onBack = { backStack.removeLastOrNull() },
+                entryProvider = { key ->
+                    leisureEntry(key) ?: error("Unknown navigation key: $key")
+                },
+            )
+        }
     }
-
 }
