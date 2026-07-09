@@ -1,20 +1,32 @@
 package com.uszkaisandor.bored.leisure.presentation.type
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Checklist
+import androidx.compose.material.icons.rounded.Groups
+import androidx.compose.material.icons.rounded.Handyman
+import androidx.compose.material.icons.rounded.MusicNote
+import androidx.compose.material.icons.rounded.Restaurant
+import androidx.compose.material.icons.rounded.School
+import androidx.compose.material.icons.rounded.SelfImprovement
+import androidx.compose.material.icons.rounded.SportsEsports
+import androidx.compose.material.icons.rounded.VolunteerActivism
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import com.uszkaisandor.bored.core.designsystem.ExtendedColors
 import com.uszkaisandor.bored.leisure.domain.LeisureActivityType
 import com.uszkaisandor.bored.leisure.presentation.R
 
-fun LeisureActivityType.toEmoji(): String = when (this) {
-    LeisureActivityType.EDUCATION -> "📚"
-    LeisureActivityType.RECREATION -> "🎮"
-    LeisureActivityType.SOCIAL -> "🤝"
-    LeisureActivityType.DIY -> "🔨"
-    LeisureActivityType.CHARITY -> "🤲"
-    LeisureActivityType.COOKING -> "🍳"
-    LeisureActivityType.RELAXATION -> "🌴"
-    LeisureActivityType.MUSIC -> "🎵"
-    LeisureActivityType.BUSYWORK -> "📅"
+/** Crisp vector icon per category — scales sharply where an emoji glyph would pixelate. */
+fun LeisureActivityType.toIcon(): ImageVector = when (this) {
+    LeisureActivityType.EDUCATION -> Icons.Rounded.School
+    LeisureActivityType.RECREATION -> Icons.Rounded.SportsEsports
+    LeisureActivityType.SOCIAL -> Icons.Rounded.Groups
+    LeisureActivityType.DIY -> Icons.Rounded.Handyman
+    LeisureActivityType.CHARITY -> Icons.Rounded.VolunteerActivism
+    LeisureActivityType.COOKING -> Icons.Rounded.Restaurant
+    LeisureActivityType.RELAXATION -> Icons.Rounded.SelfImprovement
+    LeisureActivityType.MUSIC -> Icons.Rounded.MusicNote
+    LeisureActivityType.BUSYWORK -> Icons.Rounded.Checklist
 }
 
 fun LeisureActivityType.toColor(extendedColors: ExtendedColors): Color = when (this) {

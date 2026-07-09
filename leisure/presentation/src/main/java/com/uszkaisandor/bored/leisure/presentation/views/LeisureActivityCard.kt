@@ -11,7 +11,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -21,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -35,7 +38,7 @@ import com.uszkaisandor.bored.leisure.presentation.R
 import com.uszkaisandor.bored.leisure.presentation.favourites.FavouriteButton
 import com.uszkaisandor.bored.leisure.presentation.home.sampleLeisureActivity
 import com.uszkaisandor.bored.leisure.presentation.type.toColor
-import com.uszkaisandor.bored.leisure.presentation.type.toEmoji
+import com.uszkaisandor.bored.leisure.presentation.type.toIcon
 import com.uszkaisandor.bored.leisure.presentation.type.toStringResource
 import kotlin.math.abs
 
@@ -64,7 +67,7 @@ fun LeisureActivityCard(
             Column(modifier = Modifier.padding(bottom = 20.dp)) {
                 ActivityHeader(
                     accentColor = accentColor,
-                    emoji = activity.type.toEmoji(),
+                    icon = activity.type.toIcon(),
                     category = stringResource(activity.type.toStringResource()),
                     name = activity.name,
                     isFavourite = activity.isFavourite,
@@ -87,7 +90,7 @@ fun LeisureActivityCard(
                     )
                     PersonsView(
                         persons = activity.participants,
-                        modifier = Modifier.fillMaxWidth(),
+                        color = accentColor,
                     )
                     activity.link?.let { url ->
                         Text(
@@ -113,7 +116,7 @@ fun LeisureActivityCard(
 @Composable
 private fun ActivityHeader(
     accentColor: Color,
-    emoji: String,
+    icon: ImageVector,
     category: String,
     name: String,
     isFavourite: Boolean,
@@ -139,11 +142,22 @@ private fun ActivityHeader(
             )
         }
 
-        Text(
-            text = emoji,
-            fontSize = 84.sp,
-            modifier = Modifier.align(Alignment.Center),
-        )
+        // Crisp vector category mark on a frosted medallion (replaces the pixelating emoji).
+        Box(
+            modifier = Modifier
+                .align(Alignment.Center)
+                .size(112.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.surfaceContainer.copy(alpha = 0.6f)),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.size(60.dp),
+            )
+        }
 
         FavouriteButton(
             modifier = Modifier
