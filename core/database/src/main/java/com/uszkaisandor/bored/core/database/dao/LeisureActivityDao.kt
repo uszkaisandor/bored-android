@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.uszkaisandor.bored.core.database.entity.LeisureActivityEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface LeisureActivityDao {
@@ -16,6 +17,9 @@ interface LeisureActivityDao {
 
     @Query("SELECT * FROM activities WHERE type = :type ORDER BY RANDOM() LIMIT 1")
     suspend fun getRandomByType(type: String): LeisureActivityEntity?
+
+    @Query("SELECT * FROM activities WHERE id = :id")
+    fun getById(id: String): Flow<LeisureActivityEntity?>
 
     @Query("SELECT COUNT(*) FROM activities")
     suspend fun count(): Int

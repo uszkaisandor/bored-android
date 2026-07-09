@@ -16,7 +16,8 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun FavouriteActivitiesScreen(
-    viewModel: FavouriteActivitiesViewModel = koinViewModel()
+    onActivityClick: (String) -> Unit,
+    viewModel: FavouriteActivitiesViewModel = koinViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -34,7 +35,8 @@ fun FavouriteActivitiesScreen(
             } else {
                 FavouriteActivitiesList(
                     pagingItems = pagingItems,
-                    onSwipedToDelete = viewModel::onSwipedToDelete
+                    onSwipedToDelete = viewModel::onSwipedToDelete,
+                    onActivityClick = onActivityClick,
                 )
             }
         }

@@ -47,7 +47,7 @@ fun BoredApp(modifier: Modifier = Modifier) {
                         (fadeOut(tween(320)) + scaleOut(tween(320), targetScale = 0.90f))
                 },
                 entryProvider = { key ->
-                    leisureEntry(key)
+                    leisureEntry(key, onNavigate = { backStack.add(it) })
                         ?: settingsEntry(key)
                         ?: error("Unknown navigation key: $key")
                 },

@@ -3,6 +3,7 @@ package com.uszkaisandor.bored.leisure.presentation.favourites
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,7 +26,8 @@ import com.uszkaisandor.bored.leisure.presentation.views.SwipeToDeleteBox
 @Composable
 fun FavouriteActivitiesList(
     pagingItems: LazyPagingItems<LeisureActivity>,
-    onSwipedToDelete: (String) -> Unit
+    onSwipedToDelete: (String) -> Unit,
+    onActivityClick: (String) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -45,12 +47,14 @@ fun FavouriteActivitiesList(
                     }
                 ) {
                     LeisureActivityListItem(
-                        modifier = Modifier.animateItem(
-                            placementSpec = tween(
-                                durationMillis = 200,
-                                easing = FastOutLinearInEasing
+                        modifier = Modifier
+                            .animateItem(
+                                placementSpec = tween(
+                                    durationMillis = 200,
+                                    easing = FastOutLinearInEasing
+                                )
                             )
-                        ),
+                            .clickable { onActivityClick(it.id) },
                         leisureActivity = it
                     )
                 }

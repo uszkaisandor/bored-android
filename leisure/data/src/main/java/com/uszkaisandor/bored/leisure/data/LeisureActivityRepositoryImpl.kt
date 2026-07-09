@@ -28,6 +28,11 @@ class LeisureActivityRepositoryImpl(
         emit(entity.toDomain())
     }.flowOn(Dispatchers.IO)
 
+    override fun getActivity(id: String): Flow<LeisureActivity?> =
+        dao.getById(id)
+            .map { entity -> entity?.toDomain() }
+            .flowOn(Dispatchers.IO)
+
     override suspend fun setIsFavourite(id: String, checked: Boolean) {
         dao.updateFavourite(id = id, favourite = checked)
     }

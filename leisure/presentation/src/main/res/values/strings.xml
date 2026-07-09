@@ -1,6 +1,7 @@
 <resources>
     <string name="get_new_activity">Recommend me new activity!</string>
     <string name="filter_all">All</string>
+    <string name="activity_not_found">This activity is no longer available.</string>
     <string name="learn_more">Learn more</string>
     <string name="error_title">Couldn\'t load an activity</string>
     <string name="retry">Try again</string>
