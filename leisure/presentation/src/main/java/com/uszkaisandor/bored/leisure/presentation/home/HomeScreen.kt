@@ -4,6 +4,11 @@ import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +23,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,6 +48,7 @@ fun HomeScreen(
         val openUrlLauncher = rememberLauncherForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { _ -> }
+        val haptic = LocalHapticFeedback.current
 
         Column(
             modifier = modifier
@@ -55,16 +63,24 @@ fun HomeScreen(
                 if (uiState.hasError) {
                     ErrorContent(modifier = Modifier.align(Alignment.Center))
                 } else {
-                    LeisureActivityCard(
-                        modifier = Modifier
-                            .align(Alignment.TopCenter)
-                            .padding(20.dp),
-                        leisureActivity = uiState.currentLeisureActivity,
-                        onFavouriteChecked = viewModel::onFavouriteChecked,
-                        onLinkClicked = {
-                            openUrlLauncher.launch(Intent(Intent.ACTION_VIEW, Uri.parse(it)))
-                        }
-                    )
+                    AnimatedContent(
+                        targetState = uiState.currentLeisureActivity,
+                        modifier = Modifier.align(Alignment.TopCenter),
+                        transitionSpec = {
+                            (fadeIn() + scaleIn(initialScale = 0.92f)) togetherWith fadeOut()
+                        },
+                        contentKey = { it?.id },
+                        label = "activity-reveal",
+                    ) { activity ->
+                        LeisureActivityCard(
+                            modifier = Modifier.padding(20.dp),
+                            leisureActivity = activity,
+                            onFavouriteChecked = viewModel::onFavouriteChecked,
+                            onLinkClicked = {
+                                openUrlLauncher.launch(Intent(Intent.ACTION_VIEW, Uri.parse(it)))
+                            }
+                        )
+                    }
                 }
             }
 
@@ -73,7 +89,10 @@ fun HomeScreen(
                     .padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
                     .height(56.dp)
                     .fillMaxWidth(),
-                onClick = { viewModel.onButtonClicked() }
+                onClick = {
+                    haptic.performHapticFeedback(HapticFeedbackType.Confirm)
+                    viewModel.onButtonClicked()
+                }
             ) {
                 Text(
                     text = stringResource(id = R.string.get_new_activity),
