@@ -8,6 +8,7 @@ import com.uszkaisandor.bored.core.database.dao.LeisureActivityDao
 import com.uszkaisandor.bored.leisure.data.mapper.toDomain
 import com.uszkaisandor.bored.leisure.data.seed.LeisureActivitySeeder
 import com.uszkaisandor.bored.leisure.domain.LeisureActivity
+import com.uszkaisandor.bored.leisure.domain.LeisureActivityType
 import com.uszkaisandor.bored.leisure.domain.repository.LeisureActivityRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -20,10 +21,10 @@ class LeisureActivityRepositoryImpl(
     private val seeder: LeisureActivitySeeder,
 ) : LeisureActivityRepository {
 
-    override fun getRandom(): Flow<LeisureActivity> = flow {
+    override fun getRandom(type: LeisureActivityType?): Flow<LeisureActivity> = flow {
         seeder.seedIfEmpty()
-        val entity = dao.getRandom()
-            ?: throw NoSuchElementException("No activities available in the local dataset")
+        val entity = if (type == null) dao.getRandom() else dao.getRandomByType(type.name)
+        entity ?: throw NoSuchElementException("No activities available for the current selection")
         emit(entity.toDomain())
     }.flowOn(Dispatchers.IO)
 

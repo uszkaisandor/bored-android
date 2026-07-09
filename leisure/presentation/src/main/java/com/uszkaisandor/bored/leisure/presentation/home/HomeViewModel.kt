@@ -3,6 +3,7 @@ package com.uszkaisandor.bored.leisure.presentation.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uszkaisandor.bored.core.ui.BaseViewModel
+import com.uszkaisandor.bored.leisure.domain.LeisureActivityType
 import com.uszkaisandor.bored.leisure.domain.repository.LeisureActivityRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,8 +25,9 @@ class HomeViewModel(
     }
 
     private fun getRandomActivity() {
+        val type = uiState.value.selectedType
         viewModelScope.launch {
-            repository.getRandom()
+            repository.getRandom(type)
                 .onStart { _uiState.update { it.copy(isLoading = true, hasError = false) } }
                 .catch { _uiState.update { it.copy(isLoading = false, hasError = true) } }
                 .collectLatest { activity ->
@@ -41,6 +43,12 @@ class HomeViewModel(
     }
 
     fun onButtonClicked() {
+        getRandomActivity()
+    }
+
+    fun onTypeSelected(type: LeisureActivityType?) {
+        if (type == uiState.value.selectedType) return
+        _uiState.update { it.copy(selectedType = type) }
         getRandomActivity()
     }
 

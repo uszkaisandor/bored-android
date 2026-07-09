@@ -14,6 +14,9 @@ interface LeisureActivityDao {
     @Query("SELECT * FROM activities ORDER BY RANDOM() LIMIT 1")
     suspend fun getRandom(): LeisureActivityEntity?
 
+    @Query("SELECT * FROM activities WHERE type = :type ORDER BY RANDOM() LIMIT 1")
+    suspend fun getRandomByType(type: String): LeisureActivityEntity?
+
     @Query("SELECT COUNT(*) FROM activities")
     suspend fun count(): Int
 

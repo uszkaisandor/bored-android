@@ -59,6 +59,11 @@ fun HomeScreen(
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background),
         ) {
+            CategoryFilterRow(
+                selectedType = uiState.selectedType,
+                onTypeSelected = viewModel::onTypeSelected,
+                modifier = Modifier.padding(top = 8.dp, bottom = 4.dp),
+            )
             Box(
                 modifier = Modifier
                     .weight(1f)
