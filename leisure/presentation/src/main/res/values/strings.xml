@@ -19,4 +19,12 @@
 
     <string name="favourites_empty_title">There are no favourite activities. To add any, tap the heart icon on any activity card.</string>
     <string name="category">Category: %1$s</string>
+
+    <string name="add_to_favourites">Add to favourites</string>
+    <string name="remove_from_favourites">Remove from favourites</string>
+    <string name="delete_activity">Delete activity</string>
+    <plurals name="participants_count">
+        <item quantity="one">%d participant</item>
+        <item quantity="other">%d participants</item>
+    </plurals>
 </resources>

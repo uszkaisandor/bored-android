@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 fun PersonIcon(modifier: Modifier = Modifier, tintColor: Color) {
     Icon(
         imageVector = Icons.TwoTone.Person,
+        // Decorative: PersonsView exposes the participant count as a single merged semantic.
         contentDescription = null,
         tint = tintColor,
         modifier = modifier

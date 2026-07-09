@@ -20,6 +20,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import com.uszkaisandor.bored.leisure.presentation.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -71,7 +73,7 @@ fun SwipeToDeleteBox(
                     modifier = Modifier.minimumInteractiveComponentSize(),
                     imageVector = icon,
                     tint = MaterialTheme.colorScheme.onErrorContainer,
-                    contentDescription = null
+                    contentDescription = stringResource(R.string.delete_activity)
                 )
             }
         }
