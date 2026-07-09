@@ -23,6 +23,7 @@ room = "2.8.4"
 paging = "3.4.0"
 graphicsShapes = "1.0.1"
 datastore = "1.2.1"
+glance = "1.1.1"
 
 junit = "4.13.2"
 androidxTestExtJunit = "1.3.0"
@@ -67,6 +68,8 @@ androidx-room-compiler = { group = "androidx.room", name = "room-compiler", vers
 androidx-paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "paging" }
 androidx-graphics-shapes = { group = "androidx.graphics", name = "graphics-shapes", version.ref = "graphicsShapes" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+androidx-glance-appwidget = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glance" }
+androidx-glance-material3 = { group = "androidx.glance", name = "glance-material3", version.ref = "glance" }
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }

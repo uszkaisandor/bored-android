@@ -1,0 +1,5 @@
+<resources>
+    <string name="widget_description">A random activity, one tap away.</string>
+    <string name="widget_refresh">Something else</string>
+    <string name="widget_empty">Open Bored to get started</string>
+</resources>

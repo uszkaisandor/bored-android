@@ -39,6 +39,7 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":leisure:presentation"))
     implementation(project(":settings:presentation"))
+    implementation(project(":widget"))
     // Runtime feature graph: brings the Koin modules for the repository, seeder,
     // database and Json into the app.
     implementation(project(":leisure:data"))
