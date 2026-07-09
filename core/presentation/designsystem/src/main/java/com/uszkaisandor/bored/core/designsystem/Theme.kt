@@ -226,7 +226,7 @@ private val mediumContrastDarkColorScheme = darkColorScheme(
 
 val extendedLight = ExtendedColors(
     education = Color(0xFF775A0B),
-    recreation = Color(0xFF336699), // Example color, replace with appropriate color values
+    recreation = Color(0xFF336699),
     social = Color(0xFF99CC00),
     diy = Color(0xFFFF6600),
     charity = Color(0xFF0099CC),
@@ -295,16 +295,43 @@ fun AppTheme(
         }
     }
 
-    val extendedColors = if (darkTheme) extendedDark else extendedLight
+    val baseExtendedColors = if (darkTheme) extendedDark else extendedLight
+    // Under dynamic color the scheme is wallpaper-derived, so nudge the per-type
+    // accents toward it (Material color harmonization) to avoid clashes. The
+    // static schemes are already designed together, so leave them untouched.
+    val extendedColors = if (useDynamicColor) {
+        baseExtendedColors.harmonizedTo(colorScheme.primary)
+    } else {
+        baseExtendedColors
+    }
 
     CompositionLocalProvider(LocalExtendedColors provides extendedColors) {
         MaterialTheme(
             colorScheme = colorScheme,
+            shapes = AppShapes,
             typography = Typography,
             content = content
         )
     }
 
+}
+
+/** Harmonizes every per-type accent toward [against] so they sit within the active scheme. */
+private fun ExtendedColors.harmonizedTo(against: Color): ExtendedColors {
+    fun Color.harmonized() = Color(MaterialColors.harmonize(toArgb(), against.toArgb()))
+    return ExtendedColors(
+        education = education.harmonized(),
+        recreation = recreation.harmonized(),
+        social = social.harmonized(),
+        diy = diy.harmonized(),
+        charity = charity.harmonized(),
+        cooking = cooking.harmonized(),
+        relaxation = relaxation.harmonized(),
+        music = music.harmonized(),
+        busyWork = busyWork.harmonized(),
+        favourite = favourite.harmonized(),
+        link = link.harmonized(),
+    )
 }
 
 object ExtendedTheme {
