@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    Adaptive-icon foreground: a friendly face (the "less bored" smile).
-    Content stays within the inner safe zone of the 108dp viewport so it
-    survives any launcher mask.
--->
+<!-- Legacy round launcher icon for API < 26: circular background + the same face. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- left eye -->
+    <path
+        android:fillColor="@color/ic_launcher_background"
+        android:pathData="M0,54 a54,54 0 1,0 108,0 a54,54 0 1,0 -108,0 Z" />
     <path
         android:fillColor="@color/ic_launcher_ink"
         android:pathData="M36,46 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0 Z" />
-    <!-- right eye -->
     <path
         android:fillColor="@color/ic_launcher_ink"
         android:pathData="M60,46 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0 Z" />
-    <!-- smile -->
     <path
         android:fillColor="#00000000"
         android:strokeColor="@color/ic_launcher_ink"
