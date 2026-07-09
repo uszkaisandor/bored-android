@@ -1,0 +1,4 @@
+- The app now works fully offline — no internet connection is required.
+- Your favourites are now included in device backup and transfer.
+- Improved screen reader support for the favourite, delete, and participant controls.
+- Rebuilt on a modern, modular foundation for smoother performance and faster updates.
