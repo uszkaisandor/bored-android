@@ -23,6 +23,7 @@ import com.uszkaisandor.bored.core.designsystem.Typography
 fun LeisureActivityListItem(
     leisureActivity: LeisureActivity,
     modifier: Modifier = Modifier,
+    titleModifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
@@ -35,7 +36,7 @@ fun LeisureActivityListItem(
         contentAlignment = Alignment.CenterStart
     ) {
         Text(
-            modifier = Modifier
+            modifier = titleModifier
                 .padding(horizontal = 16.dp, vertical = 16.dp),
             text = leisureActivity.name,
             textAlign = TextAlign.Start,

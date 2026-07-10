@@ -61,6 +61,7 @@ fun LeisureActivityCard(
     onFavouriteChecked: (Boolean) -> Unit,
     onLinkClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
+    titleModifier: Modifier = Modifier,
 ) {
     leisureActivity?.let { activity ->
         val accentColor = activity.type.toColor(ExtendedTheme.colors)
@@ -82,6 +83,7 @@ fun LeisureActivityCard(
                     name = activity.name,
                     isFavourite = activity.isFavourite,
                     onFavouriteChecked = onFavouriteChecked,
+                    titleModifier = titleModifier,
                 )
 
                 Column(
@@ -132,6 +134,7 @@ private fun ActivityHeader(
     name: String,
     isFavourite: Boolean,
     onFavouriteChecked: (Boolean) -> Unit,
+    titleModifier: Modifier = Modifier,
 ) {
     Box(
         modifier = Modifier
@@ -194,8 +197,9 @@ private fun ActivityHeader(
             onClicked = onFavouriteChecked,
         )
 
-        Text(
-            text = name,
+        // The gradient scrim belongs to the card and arrives with its fade+scale; only the
+        // title Text is the shared element that travels from the favourites row.
+        Box(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
@@ -205,10 +209,16 @@ private fun ActivityHeader(
                     )
                 )
                 .padding(horizontal = 20.dp, vertical = 14.dp),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.titleLarge,
-            color = MaterialTheme.colorScheme.onSurface,
-        )
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(
+                text = name,
+                modifier = titleModifier,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+        }
     }
 }
 

@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.uszkaisandor.bored.core.ui.BaseScreen
 import com.uszkaisandor.bored.leisure.presentation.R
-import com.uszkaisandor.bored.leisure.presentation.navigation.sharedActivityBounds
+import com.uszkaisandor.bored.leisure.presentation.navigation.sharedActivityTitle
 import com.uszkaisandor.bored.leisure.presentation.views.LeisureActivityCard
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -42,14 +42,13 @@ fun ActivityDetailScreen(
                 state.isLoading -> CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
 
                 state.activity != null -> LeisureActivityCard(
-                    modifier = Modifier
-                        .align(Alignment.TopCenter)
-                        .sharedActivityBounds(activityId),
+                    modifier = Modifier.align(Alignment.TopCenter),
                     leisureActivity = state.activity,
                     onFavouriteChecked = viewModel::onFavouriteChecked,
                     onLinkClicked = {
                         openUrlLauncher.launch(Intent(Intent.ACTION_VIEW, Uri.parse(it)))
                     },
+                    titleModifier = Modifier.sharedActivityTitle(activityId),
                 )
 
                 else -> Text(
