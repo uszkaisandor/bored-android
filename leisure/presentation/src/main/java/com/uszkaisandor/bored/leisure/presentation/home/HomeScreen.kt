@@ -30,7 +30,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.uszkaisandor.bored.core.designsystem.AppTheme
-import com.uszkaisandor.bored.core.designsystem.Typography
 import com.uszkaisandor.bored.core.domain.result.DomainError
 import com.uszkaisandor.bored.core.ui.BaseScreen
 import com.uszkaisandor.bored.core.ui.rememberAppHaptics
@@ -124,7 +123,7 @@ fun HomeScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.get_new_activity),
-                    style = Typography.labelLarge,
+                    style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onPrimary
                 )
             }

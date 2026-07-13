@@ -17,10 +17,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import com.uszkaisandor.bored.core.ui.rememberAppHaptics
 import com.uszkaisandor.bored.leisure.presentation.R
@@ -43,28 +41,10 @@ fun SwipeToDeleteBox(
         }
     }
 
-    lateinit var icon: ImageVector
-    lateinit var alignment: Alignment
-    val color: Color
-
-    when (swipeState.dismissDirection) {
-        SwipeToDismissBoxValue.EndToStart -> {
-            icon = Icons.Default.Delete
-            alignment = Alignment.CenterEnd
-            color = MaterialTheme.colorScheme.errorContainer
-        }
-
-
-        SwipeToDismissBoxValue.Settled -> {
-            icon = Icons.Default.Delete
-            alignment = Alignment.CenterEnd
-            color = MaterialTheme.colorScheme.errorContainer
-        }
-
-        SwipeToDismissBoxValue.StartToEnd -> {
-            icon = Icons.Default.Delete
-            alignment = Alignment.CenterStart
-            color = MaterialTheme.colorScheme.errorContainer
+    // Fire the delete exactly once, as a keyed side-effect — not during composition.
+    LaunchedEffect(swipeState.currentValue) {
+        if (swipeState.currentValue == SwipeToDismissBoxValue.EndToStart) {
+            onDelete()
         }
     }
 
@@ -74,14 +54,14 @@ fun SwipeToDeleteBox(
         enableDismissFromStartToEnd = false,
         backgroundContent = {
             Box(
-                contentAlignment = alignment,
+                contentAlignment = Alignment.CenterEnd,
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(color = color, shape = shape)
+                    .background(color = MaterialTheme.colorScheme.errorContainer, shape = shape)
             ) {
                 Icon(
                     modifier = Modifier.minimumInteractiveComponentSize(),
-                    imageVector = icon,
+                    imageVector = Icons.Default.Delete,
                     tint = MaterialTheme.colorScheme.onErrorContainer,
                     contentDescription = stringResource(R.string.delete_activity)
                 )
@@ -89,13 +69,5 @@ fun SwipeToDeleteBox(
         }
     ) {
         content()
-    }
-
-    when (swipeState.currentValue) {
-        SwipeToDismissBoxValue.EndToStart -> {
-            onDelete()
-        }
-
-        SwipeToDismissBoxValue.StartToEnd, SwipeToDismissBoxValue.Settled -> Unit
     }
 }

@@ -10,8 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -46,7 +46,7 @@ fun FavouriteActivitiesList(
         ) { index ->
             pagingItems[index]?.let {
                 SwipeToDeleteBox(
-                    shape = RoundedCornerShape(16.dp),
+                    shape = MaterialTheme.shapes.medium,
                     onDelete = {
                         onSwipedToDelete(it.id)
                     }
