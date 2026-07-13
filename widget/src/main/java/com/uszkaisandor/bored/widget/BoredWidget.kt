@@ -1,6 +1,5 @@
 package com.uszkaisandor.bored.widget
 
-import android.content.ComponentName
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
@@ -24,49 +23,75 @@ import androidx.glance.layout.padding
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
+import com.uszkaisandor.bored.core.domain.result.DomainError
 import com.uszkaisandor.bored.core.domain.result.Outcome
-import com.uszkaisandor.bored.leisure.domain.LeisureActivity
 import com.uszkaisandor.bored.leisure.domain.repository.LeisureActivityRepository
 import kotlinx.coroutines.flow.first
-import org.koin.core.context.GlobalContext
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 /**
  * A home-screen widget showing one activity with a refresh action. Rendered with
  * Glance (RemoteViews under the hood), so it deliberately stays simple. Each
  * update re-queries the repository for a fresh random pick.
+ *
+ * Implements [KoinComponent] so the repository is injected rather than pulled from
+ * the global context by hand (the widget is instantiated by the framework, not Koin).
  */
-class BoredWidget : GlanceAppWidget() {
+class BoredWidget : GlanceAppWidget(), KoinComponent {
+
+    private val repository: LeisureActivityRepository by inject()
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
-        val repository: LeisureActivityRepository = GlobalContext.get().get()
-        val activity = runCatching {
-            (repository.getRandom().first() as? Outcome.Success)?.data
-        }.getOrNull()
+        val state = runCatching {
+            when (val outcome = repository.getRandom().first()) {
+                is Outcome.Success -> WidgetState.Content(outcome.data.name)
+                is Outcome.Failure ->
+                    if (outcome.error is DomainError.Empty) WidgetState.Empty else WidgetState.Error
+            }
+        }.getOrElse { WidgetState.Error }
 
         provideContent {
             GlanceTheme {
-                WidgetContent(context, activity)
+                WidgetContent(context, state)
             }
         }
     }
 }
 
+private sealed interface WidgetState {
+    data class Content(val name: String) : WidgetState
+    data object Empty : WidgetState
+    data object Error : WidgetState
+}
+
 @Composable
-private fun WidgetContent(context: Context, activity: LeisureActivity?) {
-    val openApp = ComponentName(
-        context.packageName,
-        "com.uszkaisandor.bored.architecture.MainActivity",
-    )
+private fun WidgetContent(context: Context, state: WidgetState) {
+    // Resolve the launcher activity dynamically instead of hardcoding its class name.
+    val launcherComponent = context.packageManager
+        .getLaunchIntentForPackage(context.packageName)
+        ?.component
+
+    var modifier = GlanceModifier
+        .fillMaxSize()
+        .background(GlanceTheme.colors.background)
+        .padding(16.dp)
+    if (launcherComponent != null) {
+        modifier = modifier.clickable(actionStartActivity(launcherComponent))
+    }
+
+    val label = when (state) {
+        is WidgetState.Content -> state.name
+        WidgetState.Empty -> context.getString(R.string.widget_empty)
+        WidgetState.Error -> context.getString(R.string.widget_error)
+    }
+
     Column(
-        modifier = GlanceModifier
-            .fillMaxSize()
-            .background(GlanceTheme.colors.background)
-            .padding(16.dp)
-            .clickable(actionStartActivity(openApp)),
+        modifier = modifier,
         verticalAlignment = Alignment.Vertical.CenterVertically,
     ) {
         Text(
-            text = activity?.name ?: context.getString(R.string.widget_empty),
+            text = label,
             style = TextStyle(
                 color = GlanceTheme.colors.onBackground,
                 fontSize = 16.sp,
