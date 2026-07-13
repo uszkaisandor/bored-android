@@ -24,6 +24,7 @@ import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,6 +36,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -107,7 +109,9 @@ fun LeisureActivityCard(
                     activity.link?.let { url ->
                         Text(
                             text = stringResource(id = R.string.learn_more),
-                            modifier = Modifier.clickable { onLinkClicked(url) },
+                            modifier = Modifier
+                                .minimumInteractiveComponentSize()
+                                .clickable(role = Role.Button) { onLinkClicked(url) },
                             style = MaterialTheme.typography.bodyLarge,
                             color = ExtendedTheme.colors.link,
                             textDecoration = TextDecoration.Underline,

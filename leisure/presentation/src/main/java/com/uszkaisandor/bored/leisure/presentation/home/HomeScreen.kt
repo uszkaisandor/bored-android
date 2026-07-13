@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -145,7 +146,7 @@ private fun ErrorContent(
         modifier = modifier.padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(text = "😕", fontSize = 48.sp)
+        Text(text = "😕", fontSize = 48.sp, modifier = Modifier.clearAndSetSemantics { })
         Spacer(modifier = Modifier.height(12.dp))
         Text(
             text = stringResource(id = messageRes),
