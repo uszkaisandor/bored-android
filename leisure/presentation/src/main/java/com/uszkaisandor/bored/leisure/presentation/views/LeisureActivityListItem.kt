@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import com.uszkaisandor.bored.leisure.domain.LeisureActivity
 import com.uszkaisandor.bored.leisure.presentation.home.sampleLeisureActivity
 import com.uszkaisandor.bored.core.designsystem.AppTheme
-import com.uszkaisandor.bored.core.designsystem.Typography
 
 @Composable
 fun LeisureActivityListItem(
@@ -31,7 +29,7 @@ fun LeisureActivityListItem(
             .wrapContentHeight()
             .background(
                 color = MaterialTheme.colorScheme.surfaceContainer,
-                shape = RoundedCornerShape(16.dp)
+                shape = MaterialTheme.shapes.medium
             ),
         contentAlignment = Alignment.CenterStart
     ) {
@@ -40,7 +38,7 @@ fun LeisureActivityListItem(
                 .padding(horizontal = 16.dp, vertical = 16.dp),
             text = leisureActivity.name,
             textAlign = TextAlign.Start,
-            style = Typography.titleMedium,
+            style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onSurface
         )
     }
