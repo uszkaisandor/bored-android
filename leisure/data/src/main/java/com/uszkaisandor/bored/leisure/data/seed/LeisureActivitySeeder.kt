@@ -1,6 +1,5 @@
 package com.uszkaisandor.bored.leisure.data.seed
 
-import android.content.Context
 import com.uszkaisandor.bored.leisure.data.datasource.LeisureLocalDataSource
 import kotlinx.serialization.json.Json
 
@@ -9,21 +8,13 @@ import kotlinx.serialization.json.Json
  * defunct remote API as the source of activities.
  */
 class LeisureActivitySeeder(
-    private val context: Context,
+    private val reader: ActivitySeedReader,
     private val localDataSource: LeisureLocalDataSource,
     private val json: Json,
 ) {
     suspend fun seedIfEmpty() {
         if (localDataSource.count() > 0) return
-        val text = context.assets
-            .open(ASSET_NAME)
-            .bufferedReader()
-            .use { it.readText() }
-        val items = json.decodeFromString<List<LeisureActivitySeedItem>>(text)
+        val items = json.decodeFromString<List<LeisureActivitySeedItem>>(reader.readJson())
         localDataSource.insertAll(items.map { it.toEntity() })
-    }
-
-    private companion object {
-        const val ASSET_NAME = "activities.json"
     }
 }
