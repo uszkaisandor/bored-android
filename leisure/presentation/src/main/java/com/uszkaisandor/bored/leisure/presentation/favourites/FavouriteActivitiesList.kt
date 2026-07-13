@@ -17,6 +17,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.uszkaisandor.bored.leisure.presentation.R
 import androidx.paging.LoadState
@@ -51,6 +52,7 @@ fun FavouriteActivitiesList(
                         onSwipedToDelete(it.id)
                     }
                 ) {
+                    val openLabel = stringResource(id = R.string.open_activity)
                     LeisureActivityListItem(
                         modifier = Modifier
                             .animateItem(
@@ -59,7 +61,9 @@ fun FavouriteActivitiesList(
                                     easing = FastOutLinearInEasing
                                 )
                             )
-                            .clickable { onActivityClick(it.id) },
+                            .clickable(role = Role.Button, onClickLabel = openLabel) {
+                                onActivityClick(it.id)
+                            },
                         leisureActivity = it,
                         titleModifier = Modifier.sharedActivityTitle(it.id),
                     )
