@@ -26,6 +26,16 @@ header — the connective thread between the two screens, not a container that i
   <img src="docs/media/shared-element.gif" width="30%" alt="Shared-element transition from favourites to detail" />
 </p>
 
+## Light & dark
+
+A hand-tuned brand palette with genuine per-category accent colors in both themes.
+
+<p align="center">
+  <img src="docs/media/home_dark.png" width="30%" alt="Home in dark theme" />
+  <img src="docs/media/favourites_dark.png" width="30%" alt="Favourites in dark theme" />
+  <img src="docs/media/detail_dark.png" width="30%" alt="Detail in dark theme" />
+</p>
+
 ## Features
 
 - **Random recommendation** with a category filter (Education, Recreational, Social, DIY, …).
