@@ -72,11 +72,9 @@ fun LeisureActivityCard(
             modifier = modifier.fillMaxWidth(),
             shape = RoundedCornerShape(CardCorner),
             color = MaterialTheme.colorScheme.surfaceContainer,
-            tonalElevation = 2.dp,
-            shadowElevation = 6.dp,
+            // Tonal elevation only — no cast shadow — for a flat, modern M3 surface.
+            tonalElevation = 3.dp,
         ) {
-            // animateContentSize lives on the inner content, not the Surface — on the
-            // Surface its clipToBounds would clip the elevation shadow at the bottom.
             Column(
                 modifier = Modifier
                     .padding(bottom = 20.dp)
