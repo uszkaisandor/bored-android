@@ -31,3 +31,11 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# AI tooling (not part of the project)
+/CLAUDE.md
+.claude/
+
+# Release build outputs
+app/release/
+*.aab

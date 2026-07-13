@@ -1,0 +1,32 @@
+<resources>
+    <string name="get_new_activity">Recommend me new activity!</string>
+    <string name="filter_all">All</string>
+    <string name="activity_not_found">This activity is no longer available.</string>
+    <string name="learn_more">Learn more</string>
+    <string name="error_title">Couldn\'t load an activity</string>
+    <string name="error_empty">No activities match this filter</string>
+    <string name="retry">Try again</string>
+    <string name="accessibility">Accessibility</string>
+    <string name="price_range">Price range</string>
+
+    <string name="education">Education</string>
+    <string name="recreation">Recreational</string>
+    <string name="social">Social</string>
+    <string name="diy">DIY</string>
+    <string name="charity">Charity</string>
+    <string name="cooking">Cooking</string>
+    <string name="relaxation">Relaxation</string>
+    <string name="music">Music</string>
+    <string name="busywork">Busywork</string>
+
+    <string name="favourites_empty_title">There are no favourite activities. To add any, tap the heart icon on any activity card.</string>
+
+    <string name="open_activity">Open activity details</string>
+    <string name="add_to_favourites">Add to favourites</string>
+    <string name="remove_from_favourites">Remove from favourites</string>
+    <string name="delete_activity">Delete activity</string>
+    <plurals name="participants_count">
+        <item quantity="one">%d participant</item>
+        <item quantity="other">%d participants</item>
+    </plurals>
+</resources>

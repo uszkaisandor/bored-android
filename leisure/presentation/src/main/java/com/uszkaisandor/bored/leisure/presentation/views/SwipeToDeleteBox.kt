@@ -1,0 +1,73 @@
+package com.uszkaisandor.bored.leisure.presentation.views
+
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxValue
+import androidx.compose.material3.minimumInteractiveComponentSize
+import androidx.compose.material3.rememberSwipeToDismissBoxState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.res.stringResource
+import com.uszkaisandor.bored.core.ui.rememberAppHaptics
+import com.uszkaisandor.bored.leisure.presentation.R
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SwipeToDeleteBox(
+    modifier: Modifier = Modifier,
+    shape: Shape = RectangleShape,
+    onDelete: () -> Unit,
+    content: @Composable () -> Unit
+) {
+    val swipeState = rememberSwipeToDismissBoxState()
+    val haptics = rememberAppHaptics()
+
+    // A single tick the moment the drag crosses into the delete zone.
+    LaunchedEffect(swipeState.targetValue) {
+        if (swipeState.targetValue == SwipeToDismissBoxValue.EndToStart) {
+            haptics.tick()
+        }
+    }
+
+    // Fire the delete exactly once, as a keyed side-effect — not during composition.
+    LaunchedEffect(swipeState.currentValue) {
+        if (swipeState.currentValue == SwipeToDismissBoxValue.EndToStart) {
+            onDelete()
+        }
+    }
+
+    SwipeToDismissBox(
+        modifier = modifier.animateContentSize(),
+        state = swipeState,
+        enableDismissFromStartToEnd = false,
+        backgroundContent = {
+            Box(
+                contentAlignment = Alignment.CenterEnd,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = MaterialTheme.colorScheme.errorContainer, shape = shape)
+            ) {
+                Icon(
+                    modifier = Modifier.minimumInteractiveComponentSize(),
+                    imageVector = Icons.Default.Delete,
+                    tint = MaterialTheme.colorScheme.onErrorContainer,
+                    contentDescription = stringResource(R.string.delete_activity)
+                )
+            }
+        }
+    ) {
+        content()
+    }
+}
