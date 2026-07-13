@@ -12,9 +12,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.uszkaisandor.bored.leisure.presentation.R
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemKey
@@ -63,8 +67,18 @@ fun FavouriteActivitiesList(
             }
         }
         item {
-            if (pagingItems.loadState.append is LoadState.Loading) {
-                CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+            when (pagingItems.loadState.append) {
+                is LoadState.Loading ->
+                    CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+
+                is LoadState.Error -> TextButton(
+                    onClick = pagingItems::retry,
+                    modifier = Modifier.padding(8.dp),
+                ) {
+                    Text(text = stringResource(id = R.string.retry))
+                }
+
+                else -> Unit
             }
         }
     }

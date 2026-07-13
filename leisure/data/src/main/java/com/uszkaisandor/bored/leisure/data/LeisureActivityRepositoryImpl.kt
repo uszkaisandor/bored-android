@@ -4,14 +4,18 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
+import com.uszkaisandor.bored.core.domain.result.DomainError
+import com.uszkaisandor.bored.core.domain.result.Outcome
 import com.uszkaisandor.bored.leisure.data.datasource.LeisureLocalDataSource
 import com.uszkaisandor.bored.leisure.data.mapper.toDomain
+import com.uszkaisandor.bored.leisure.data.mapper.toDomainError
 import com.uszkaisandor.bored.leisure.data.seed.LeisureActivitySeeder
 import com.uszkaisandor.bored.leisure.domain.LeisureActivity
 import com.uszkaisandor.bored.leisure.domain.LeisureActivityType
 import com.uszkaisandor.bored.leisure.domain.repository.LeisureActivityRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -21,17 +25,23 @@ class LeisureActivityRepositoryImpl(
     private val seeder: LeisureActivitySeeder,
 ) : LeisureActivityRepository {
 
-    override fun getRandom(type: LeisureActivityType?): Flow<LeisureActivity> = flow {
+    override fun getRandom(type: LeisureActivityType?): Flow<Outcome<LeisureActivity>> = flow {
         seeder.seedIfEmpty()
         val entity =
             if (type == null) localDataSource.getRandom() else localDataSource.getRandomByType(type.name)
-        entity ?: throw NoSuchElementException("No activities available for the current selection")
-        emit(entity.toDomain())
-    }.flowOn(Dispatchers.IO)
+        emit(
+            if (entity == null) Outcome.Failure(DomainError.Empty)
+            else Outcome.Success(entity.toDomain())
+        )
+    }.catch { emit(Outcome.Failure(it.toDomainError())) }.flowOn(Dispatchers.IO)
 
-    override fun getActivity(id: String): Flow<LeisureActivity?> =
+    override fun getActivity(id: String): Flow<Outcome<LeisureActivity>> =
         localDataSource.observeById(id)
-            .map { entity -> entity?.toDomain() }
+            .map { entity ->
+                if (entity == null) Outcome.Failure(DomainError.NotFound)
+                else Outcome.Success(entity.toDomain())
+            }
+            .catch { emit(Outcome.Failure(it.toDomainError())) }
             .flowOn(Dispatchers.IO)
 
     override suspend fun setIsFavourite(id: String, checked: Boolean) {

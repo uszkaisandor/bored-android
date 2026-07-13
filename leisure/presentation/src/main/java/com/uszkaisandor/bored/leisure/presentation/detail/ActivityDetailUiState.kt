@@ -1,10 +1,11 @@
 package com.uszkaisandor.bored.leisure.presentation.detail
 
+import com.uszkaisandor.bored.core.domain.result.DomainError
 import com.uszkaisandor.bored.core.ui.UiState
 import com.uszkaisandor.bored.leisure.domain.LeisureActivity
 
-data class ActivityDetailUiState(
-    val activity: LeisureActivity? = null,
-    val isLoading: Boolean = true,
-    val notFound: Boolean = false,
-) : UiState
+sealed interface ActivityDetailUiState : UiState {
+    data object Loading : ActivityDetailUiState
+    data class Content(val activity: LeisureActivity) : ActivityDetailUiState
+    data class Error(val error: DomainError) : ActivityDetailUiState
+}

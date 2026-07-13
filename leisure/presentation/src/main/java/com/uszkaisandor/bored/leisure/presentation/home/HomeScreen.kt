@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,11 +31,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.uszkaisandor.bored.core.designsystem.AppTheme
 import com.uszkaisandor.bored.core.designsystem.Typography
+import com.uszkaisandor.bored.core.domain.result.DomainError
 import com.uszkaisandor.bored.core.ui.BaseScreen
 import com.uszkaisandor.bored.core.ui.rememberAppHaptics
 import com.uszkaisandor.bored.leisure.domain.LeisureActivity
 import com.uszkaisandor.bored.leisure.domain.LeisureActivityType
 import com.uszkaisandor.bored.leisure.presentation.R
+import com.uszkaisandor.bored.leisure.presentation.home.HomeUiState.ActivityState
 import com.uszkaisandor.bored.leisure.presentation.views.LeisureActivityCard
 import org.koin.androidx.compose.koinViewModel
 
@@ -49,7 +52,7 @@ fun HomeScreen(
         ) { _ -> }
         val haptics = rememberAppHaptics()
 
-        rememberShakeDetector(enabled = !uiState.isLoading) {
+        rememberShakeDetector(enabled = uiState.activityState !is ActivityState.Loading) {
             haptics.shuffle()
             viewModel.onButtonClicked()
         }
@@ -69,25 +72,41 @@ fun HomeScreen(
                     .weight(1f)
                     .fillMaxWidth()
             ) {
-                if (uiState.hasError) {
-                    ErrorContent(modifier = Modifier.align(Alignment.Center))
-                } else {
-                    AnimatedContent(
-                        targetState = uiState.currentLeisureActivity,
-                        modifier = Modifier.align(Alignment.Center),
-                        transitionSpec = {
-                            (fadeIn() + scaleIn(initialScale = 0.92f)) togetherWith fadeOut()
-                        },
-                        contentKey = { it?.id },
-                        label = "activity-reveal",
-                    ) { activity ->
-                        LeisureActivityCard(
+                AnimatedContent(
+                    targetState = uiState.activityState,
+                    modifier = Modifier.align(Alignment.Center),
+                    transitionSpec = {
+                        (fadeIn() + scaleIn(initialScale = 0.92f)) togetherWith fadeOut()
+                    },
+                    contentKey = { state ->
+                        when (state) {
+                            ActivityState.Loading -> "loading"
+                            is ActivityState.Content -> state.activity.id
+                            is ActivityState.Error -> "error"
+                        }
+                    },
+                    label = "activity-reveal",
+                ) { state ->
+                    when (state) {
+                        ActivityState.Loading -> LeisureActivityCard(
                             modifier = Modifier.padding(20.dp),
-                            leisureActivity = activity,
+                            leisureActivity = null,
+                            onFavouriteChecked = {},
+                            onLinkClicked = {},
+                        )
+
+                        is ActivityState.Content -> LeisureActivityCard(
+                            modifier = Modifier.padding(20.dp),
+                            leisureActivity = state.activity,
                             onFavouriteChecked = viewModel::onFavouriteChecked,
                             onLinkClicked = {
                                 openUrlLauncher.launch(Intent(Intent.ACTION_VIEW, Uri.parse(it)))
                             }
+                        )
+
+                        is ActivityState.Error -> ErrorContent(
+                            error = state.error,
+                            onRetry = viewModel::onRetry,
                         )
                     }
                 }
@@ -114,7 +133,15 @@ fun HomeScreen(
 }
 
 @Composable
-private fun ErrorContent(modifier: Modifier = Modifier) {
+private fun ErrorContent(
+    error: DomainError,
+    onRetry: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val messageRes = when (error) {
+        DomainError.Empty -> R.string.error_empty
+        else -> R.string.error_title
+    }
     Column(
         modifier = modifier.padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -122,11 +149,15 @@ private fun ErrorContent(modifier: Modifier = Modifier) {
         Text(text = "😕", fontSize = 48.sp)
         Spacer(modifier = Modifier.height(12.dp))
         Text(
-            text = stringResource(id = R.string.error_title),
+            text = stringResource(id = messageRes),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center,
         )
+        Spacer(modifier = Modifier.height(16.dp))
+        OutlinedButton(onClick = onRetry) {
+            Text(text = stringResource(id = R.string.retry))
+        }
     }
 }
 

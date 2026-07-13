@@ -24,6 +24,7 @@ import androidx.glance.layout.padding
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
+import com.uszkaisandor.bored.core.domain.result.Outcome
 import com.uszkaisandor.bored.leisure.domain.LeisureActivity
 import com.uszkaisandor.bored.leisure.domain.repository.LeisureActivityRepository
 import kotlinx.coroutines.flow.first
@@ -38,7 +39,9 @@ class BoredWidget : GlanceAppWidget() {
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         val repository: LeisureActivityRepository = GlobalContext.get().get()
-        val activity = runCatching { repository.getRandom().first() }.getOrNull()
+        val activity = runCatching {
+            (repository.getRandom().first() as? Outcome.Success)?.data
+        }.getOrNull()
 
         provideContent {
             GlanceTheme {

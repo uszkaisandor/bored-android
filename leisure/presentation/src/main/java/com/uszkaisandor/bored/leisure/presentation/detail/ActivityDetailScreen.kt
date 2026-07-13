@@ -4,17 +4,22 @@ import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.uszkaisandor.bored.core.domain.result.DomainError
 import com.uszkaisandor.bored.core.ui.BaseScreen
 import com.uszkaisandor.bored.leisure.presentation.R
 import com.uszkaisandor.bored.leisure.presentation.navigation.sharedActivityTitle
@@ -38,10 +43,11 @@ fun ActivityDetailScreen(
                 .fillMaxSize()
                 .padding(20.dp),
         ) {
-            when {
-                state.isLoading -> CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            when (state) {
+                ActivityDetailUiState.Loading ->
+                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
 
-                state.activity != null -> LeisureActivityCard(
+                is ActivityDetailUiState.Content -> LeisureActivityCard(
                     modifier = Modifier.align(Alignment.TopCenter),
                     leisureActivity = state.activity,
                     onFavouriteChecked = viewModel::onFavouriteChecked,
@@ -51,11 +57,38 @@ fun ActivityDetailScreen(
                     titleModifier = Modifier.sharedActivityTitle(activityId),
                 )
 
-                else -> Text(
-                    text = stringResource(id = R.string.activity_not_found),
-                    style = MaterialTheme.typography.titleMedium,
+                is ActivityDetailUiState.Error -> DetailError(
+                    error = state.error,
+                    onRetry = viewModel::onRetry,
                     modifier = Modifier.align(Alignment.Center),
                 )
+            }
+        }
+    }
+}
+
+@Composable
+private fun DetailError(
+    error: DomainError,
+    onRetry: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        Text(
+            text = stringResource(
+                id = if (error is DomainError.NotFound) R.string.activity_not_found else R.string.error_title
+            ),
+            style = MaterialTheme.typography.titleMedium,
+            textAlign = TextAlign.Center,
+        )
+        // A deleted activity won't come back; only offer retry for transient failures.
+        if (error !is DomainError.NotFound) {
+            OutlinedButton(onClick = onRetry) {
+                Text(text = stringResource(id = R.string.retry))
             }
         }
     }

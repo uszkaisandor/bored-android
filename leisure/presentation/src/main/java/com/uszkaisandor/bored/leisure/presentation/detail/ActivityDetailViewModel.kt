@@ -2,11 +2,13 @@ package com.uszkaisandor.bored.leisure.presentation.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.uszkaisandor.bored.core.domain.result.Outcome
 import com.uszkaisandor.bored.core.ui.BaseViewModel
 import com.uszkaisandor.bored.leisure.domain.repository.LeisureActivityRepository
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class ActivityDetailViewModel(
@@ -14,16 +16,28 @@ class ActivityDetailViewModel(
     private val activityId: String,
 ) : ViewModel(), BaseViewModel<ActivityDetailUiState> {
 
-    private val _uiState = MutableStateFlow(ActivityDetailUiState())
+    private val _uiState = MutableStateFlow<ActivityDetailUiState>(ActivityDetailUiState.Loading)
     override val uiState = _uiState.asStateFlow()
 
+    private var observeJob: Job? = null
+
     init {
-        viewModelScope.launch {
-            repository.getActivity(activityId).collect { activity ->
-                _uiState.update {
-                    it.copy(activity = activity, isLoading = false, notFound = activity == null)
+        observeActivity()
+    }
+
+    fun onRetry() = observeActivity()
+
+    private fun observeActivity() {
+        observeJob?.cancel()
+        observeJob = viewModelScope.launch {
+            repository.getActivity(activityId)
+                .onStart { _uiState.value = ActivityDetailUiState.Loading }
+                .collect { outcome ->
+                    _uiState.value = when (outcome) {
+                        is Outcome.Success -> ActivityDetailUiState.Content(outcome.data)
+                        is Outcome.Failure -> ActivityDetailUiState.Error(outcome.error)
+                    }
                 }
-            }
         }
     }
 
