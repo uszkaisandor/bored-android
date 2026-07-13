@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- AppHaptics drives the platform Vibrator; declared here so the module that
+         uses the permission-guarded API is self-contained and merges it upward. -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+</manifest>
