@@ -14,7 +14,7 @@ lottie = "6.6.0"
 navigation3 = "1.1.4"
 materialComponents = "1.13.0"
 
-koin = "4.1.1"
+koin = "4.2.2"
 
 kotlinxSerializationJson = "1.9.0"
 kotlinxCoroutines = "1.10.2"
