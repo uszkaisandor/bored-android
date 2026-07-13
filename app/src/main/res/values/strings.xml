@@ -1,23 +1,19 @@
 <resources>
     <string name="app_name">Bored</string>
-    <string name="get_new_activity">Recommend me new activity!</string>
-    <string name="accessibility">Accessibility</string>
-    <string name="price_range">Price range</string>
     <string name="home_tab_title">Random activity</string>
-    <string name="categories_tab_title">Categories</string>
     <string name="favourite_tab_title">Favourites</string>
+    <string name="settings_tab_title">Settings</string>
 
-    <string name="education">Education</string>
-    <string name="recreation">Recreational</string>
-    <string name="social">Social</string>
-    <string name="diy">DIY</string>
-    <string name="charity">Charity</string>
-    <string name="cooking">Cooking</string>
-    <string name="relaxation">Relaxation</string>
-    <string name="music">Music</string>
-    <string name="busywork">Busywork</string>
-    <string name="participants">Participants</string>
-
-    <string name="favourites_empty_title">There are no favourite activities. To add any, click on hearth icon on any activity card.</string>
-    <string name="category">Category: %1$s</string>
+    <string-array name="daily_tips">
+        <item>Try something new today!</item>
+        <item>Take a short walk to refresh your mind.</item>
+        <item>Call a friend you haven\'t talked to in a while.</item>
+        <item>Read a few pages from a book.</item>
+        <item>Write down three things you\'re grateful for.</item>
+        <item>Listen to your favorite song.</item>
+        <item>Plan a fun activity for the weekend.</item>
+        <item>Drink a glass of water!</item>
+        <item>Smile at someone today.</item>
+        <item>Take a deep breath and relax.</item>
+    </string-array>
 </resources>

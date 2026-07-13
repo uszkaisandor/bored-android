@@ -4,31 +4,39 @@ import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.ramcosta.composedestinations.spec.DirectionDestinationSpec
+import androidx.navigation3.runtime.NavKey
 import com.uszkaisandor.bored.R
-import com.uszkaisandor.bored.presentation.destinations.FavouriteActivitiesScreenDestination
-import com.uszkaisandor.bored.presentation.destinations.HomeScreenDestination
+import com.uszkaisandor.bored.leisure.presentation.navigation.FavouritesKey
+import com.uszkaisandor.bored.leisure.presentation.navigation.HomeKey
+import com.uszkaisandor.bored.settings.presentation.navigation.SettingsKey
 
 enum class BottomBarDestination(
-    val direction: DirectionDestinationSpec,
+    val key: NavKey,
     val unSelectedIcon: ImageVector,
     val selectedIcon: ImageVector,
-    @StringRes val label: Int
+    @StringRes val label: Int,
 ) {
     Home(
-        direction = HomeScreenDestination,
+        key = HomeKey,
         unSelectedIcon = Icons.Outlined.Home,
         selectedIcon = Icons.Filled.Home,
         label = R.string.home_tab_title
     ),
     Favourites(
-        direction = FavouriteActivitiesScreenDestination,
+        key = FavouritesKey,
         unSelectedIcon = Icons.Outlined.FavoriteBorder,
         selectedIcon = Icons.Filled.Favorite,
         label = R.string.favourite_tab_title
     ),
+    Settings(
+        key = SettingsKey,
+        unSelectedIcon = Icons.Outlined.Settings,
+        selectedIcon = Icons.Filled.Settings,
+        label = R.string.settings_tab_title
+    ),
 }
-

@@ -1,0 +1,52 @@
+[
+  { "id": "edu-1", "name": "Learn a new programming language", "type": "education", "participants": 1, "accessibility": 0.25, "priceRange": 0.0, "link": "https://www.codecademy.com" },
+  { "id": "edu-2", "name": "Watch a documentary about something you know nothing about", "type": "education", "participants": 1, "accessibility": 0.1, "priceRange": 0.1 },
+  { "id": "edu-3", "name": "Learn how to fold an origami crane", "type": "education", "participants": 1, "accessibility": 0.15, "priceRange": 0.0 },
+  { "id": "edu-4", "name": "Memorize a poem in another language", "type": "education", "participants": 1, "accessibility": 0.35, "priceRange": 0.0 },
+  { "id": "edu-5", "name": "Take a free online course on a topic you love", "type": "education", "participants": 1, "accessibility": 0.2, "priceRange": 0.0, "link": "https://www.coursera.org" },
+
+  { "id": "rec-1", "name": "Go for a walk in a nearby park", "type": "recreational", "participants": 1, "accessibility": 0.1, "priceRange": 0.0 },
+  { "id": "rec-2", "name": "Ride a bike around your neighborhood", "type": "recreational", "participants": 1, "accessibility": 0.3, "priceRange": 0.1 },
+  { "id": "rec-3", "name": "Organize a picnic with friends", "type": "recreational", "participants": 4, "accessibility": 0.4, "priceRange": 0.3 },
+  { "id": "rec-4", "name": "Try geocaching in your area", "type": "recreational", "participants": 2, "accessibility": 0.45, "priceRange": 0.1, "link": "https://www.geocaching.com" },
+  { "id": "rec-5", "name": "Fly a kite on a windy day", "type": "recreational", "participants": 2, "accessibility": 0.35, "priceRange": 0.2 },
+
+  { "id": "soc-1", "name": "Call a friend you haven't spoken to in a while", "type": "social", "participants": 2, "accessibility": 0.1, "priceRange": 0.0 },
+  { "id": "soc-2", "name": "Host a board game night", "type": "social", "participants": 4, "accessibility": 0.4, "priceRange": 0.2 },
+  { "id": "soc-3", "name": "Write a handwritten letter to someone", "type": "social", "participants": 1, "accessibility": 0.2, "priceRange": 0.1 },
+  { "id": "soc-4", "name": "Introduce yourself to a neighbor", "type": "social", "participants": 2, "accessibility": 0.3, "priceRange": 0.0 },
+  { "id": "soc-5", "name": "Plan a video call with family", "type": "social", "participants": 3, "accessibility": 0.2, "priceRange": 0.0 },
+
+  { "id": "diy-1", "name": "Build a birdhouse from scrap wood", "type": "diy", "participants": 1, "accessibility": 0.55, "priceRange": 0.3 },
+  { "id": "diy-2", "name": "Make a photo collage of favorite memories", "type": "diy", "participants": 1, "accessibility": 0.3, "priceRange": 0.2 },
+  { "id": "diy-3", "name": "Repurpose an old jar into a candle holder", "type": "diy", "participants": 1, "accessibility": 0.35, "priceRange": 0.2 },
+  { "id": "diy-4", "name": "Start a small herb garden on your windowsill", "type": "diy", "participants": 1, "accessibility": 0.4, "priceRange": 0.3 },
+  { "id": "diy-5", "name": "Knit or crochet a small scarf", "type": "diy", "participants": 1, "accessibility": 0.6, "priceRange": 0.3 },
+
+  { "id": "cha-1", "name": "Donate clothes you no longer wear", "type": "charity", "participants": 1, "accessibility": 0.2, "priceRange": 0.0 },
+  { "id": "cha-2", "name": "Volunteer a few hours at a local shelter", "type": "charity", "participants": 1, "accessibility": 0.5, "priceRange": 0.0 },
+  { "id": "cha-3", "name": "Leave a kind note for a stranger to find", "type": "charity", "participants": 1, "accessibility": 0.15, "priceRange": 0.0 },
+  { "id": "cha-4", "name": "Pick up litter in a public space", "type": "charity", "participants": 1, "accessibility": 0.25, "priceRange": 0.0 },
+  { "id": "cha-5", "name": "Cook a meal for someone who could use it", "type": "charity", "participants": 2, "accessibility": 0.45, "priceRange": 0.3 },
+
+  { "id": "coo-1", "name": "Bake bread from scratch", "type": "cooking", "participants": 1, "accessibility": 0.5, "priceRange": 0.2 },
+  { "id": "coo-2", "name": "Try a recipe from a cuisine you've never cooked", "type": "cooking", "participants": 1, "accessibility": 0.45, "priceRange": 0.4 },
+  { "id": "coo-3", "name": "Make homemade pizza with your favorite toppings", "type": "cooking", "participants": 2, "accessibility": 0.4, "priceRange": 0.3 },
+  { "id": "coo-4", "name": "Prepare a smoothie with whatever fruit you have", "type": "cooking", "participants": 1, "accessibility": 0.15, "priceRange": 0.2 },
+  { "id": "coo-5", "name": "Bake cookies and share them", "type": "cooking", "participants": 2, "accessibility": 0.3, "priceRange": 0.25 },
+
+  { "id": "rel-1", "name": "Do a 10-minute guided meditation", "type": "relaxation", "participants": 1, "accessibility": 0.1, "priceRange": 0.0 },
+  { "id": "rel-2", "name": "Take a long, warm bath", "type": "relaxation", "participants": 1, "accessibility": 0.1, "priceRange": 0.1 },
+  { "id": "rel-3", "name": "Watch the sunset without your phone", "type": "relaxation", "participants": 1, "accessibility": 0.2, "priceRange": 0.0 },
+  { "id": "rel-4", "name": "Practice deep breathing for five minutes", "type": "relaxation", "participants": 1, "accessibility": 0.05, "priceRange": 0.0 },
+
+  { "id": "mus-1", "name": "Learn the basics of an instrument online", "type": "music", "participants": 1, "accessibility": 0.5, "priceRange": 0.2, "link": "https://www.justinguitar.com" },
+  { "id": "mus-2", "name": "Make a playlist for a specific mood", "type": "music", "participants": 1, "accessibility": 0.15, "priceRange": 0.0 },
+  { "id": "mus-3", "name": "Listen to a full album you've never heard", "type": "music", "participants": 1, "accessibility": 0.1, "priceRange": 0.0 },
+  { "id": "mus-4", "name": "Sing along to your favorite songs", "type": "music", "participants": 1, "accessibility": 0.1, "priceRange": 0.0 },
+
+  { "id": "bus-1", "name": "Declutter and organize one drawer", "type": "busywork", "participants": 1, "accessibility": 0.2, "priceRange": 0.0 },
+  { "id": "bus-2", "name": "Back up the photos on your phone", "type": "busywork", "participants": 1, "accessibility": 0.25, "priceRange": 0.0 },
+  { "id": "bus-3", "name": "Unsubscribe from newsletters you never read", "type": "busywork", "participants": 1, "accessibility": 0.15, "priceRange": 0.0 },
+  { "id": "bus-4", "name": "Plan your meals for the coming week", "type": "busywork", "participants": 1, "accessibility": 0.3, "priceRange": 0.1 }
+]
