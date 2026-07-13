@@ -69,15 +69,19 @@ fun LeisureActivityCard(
         val accentColor = activity.type.toColor(ExtendedTheme.colors)
 
         Surface(
-            modifier = modifier
-                .fillMaxWidth()
-                .animateContentSize(),
+            modifier = modifier.fillMaxWidth(),
             shape = RoundedCornerShape(CardCorner),
             color = MaterialTheme.colorScheme.surfaceContainer,
             tonalElevation = 2.dp,
             shadowElevation = 6.dp,
         ) {
-            Column(modifier = Modifier.padding(bottom = 20.dp)) {
+            // animateContentSize lives on the inner content, not the Surface — on the
+            // Surface its clipToBounds would clip the elevation shadow at the bottom.
+            Column(
+                modifier = Modifier
+                    .padding(bottom = 20.dp)
+                    .animateContentSize(),
+            ) {
                 ActivityHeader(
                     accentColor = accentColor,
                     icon = activity.type.toIcon(),
