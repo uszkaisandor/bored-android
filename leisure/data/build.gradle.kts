@@ -20,4 +20,8 @@ dependencies {
     implementation(libs.androidx.room.paging)
     implementation(libs.androidx.paging.common)
     implementation(libs.kotlinx.serialization.json)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
 }

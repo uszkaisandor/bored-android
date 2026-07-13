@@ -31,4 +31,8 @@ dependencies {
 
     implementation(libs.lottie.compose)
     implementation(libs.androidx.paging.compose)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
 }
