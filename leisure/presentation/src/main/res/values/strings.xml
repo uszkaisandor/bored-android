@@ -4,6 +4,7 @@
     <string name="activity_not_found">This activity is no longer available.</string>
     <string name="learn_more">Learn more</string>
     <string name="error_title">Couldn\'t load an activity</string>
+    <string name="error_empty">No activities match this filter</string>
     <string name="retry">Try again</string>
     <string name="accessibility">Accessibility</string>
     <string name="price_range">Price range</string>
